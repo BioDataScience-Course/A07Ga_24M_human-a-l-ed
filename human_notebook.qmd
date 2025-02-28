@@ -62,16 +62,24 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 2
 
 ```{r student2}
-
-
+chart(biometry, ~ activite_physique %fill=% sucre) + geom_histogram(bins = 10)
+sfilter(biometry, activite_physique, sucre) %>.%
+sselect(., genre)
+tabularise(B_ap_sucre)
 ```
 
 ...Vos deux descriptions ici...
 
+On voit que la consommation de sucre diminue avec la réalisation d'activité physique qui augmente (avec une certaine rémanence pour les consommateurs de plus grande quantité de sucre).
+
 ### Description par l'étudiant 3
 
 ```{r student3}
-
+chart(biometry, ~ masse %fill=% sucre )+
+  geom_histogram(bins=20)
+biogenre <- ssummarise(sgroup_by(biometry, genre),
+  "n"       = fn(masse))
+tabularise(biogenre)
 ```
 
 ...Vos deux descriptions ici...
@@ -140,7 +148,7 @@ chart(biometry, ~ masse) +
 
 ```{r indice2}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-
+poids_ideal <- (biometry$taille - 100 + 4 * biometry$tour_poignet)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
