@@ -77,8 +77,9 @@ On voit que la consommation de sucre diminue avec la réalisation d'activité ph
 ```{r student3}
 chart(biometry, ~ masse %fill=% sucre )+
   geom_histogram(bins=20)
-biometry %>.%
-  sselect(.,masse,sucre,)
+biogenre <- ssummarise(sgroup_by(biometry, genre),
+  "n"       = fn(masse))
+tabularise(biogenre)
 ```
 
 ...Vos deux descriptions ici...
