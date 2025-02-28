@@ -79,8 +79,27 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 4
 
 ```{r student4}
+## Recodage de biometry$age en biometry$age_rec
+biometry$age_rec <- cut(biometry$age,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 4,
+  breaks = c(18, 40, 60, 80)
+)
+  
+  ## Recodage de biometry$masse en biometry$masse_rec
+biometry$masse_rec <- cut(biometry$masse,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 4,
+  breaks = c(40, 50, 60, 70, 80, 90, 100, 120, 130)
+)
 
+chart(biometry, ~ masse) +
+    geom_histogram()
 
+   biometry_tab <- table(masse = biometry$masse_rec ,age =  biometry$age_rec)
+   tabularise(biometry_tab)
 ```
 
 ...Vos deux descriptions ici...
