@@ -70,7 +70,53 @@ biometry %>.%
     biometry
 
 # Ajout des labels et des unités
-# TODO
+labelise(biometry,
+  label = list(
+    id = "identifiant",
+    date_naissance = "date de naissance", 
+    genre = "Genre", 
+    masse_std_ref = "masse de référence de l'expérimentateur", 
+    masse_std = "masse de l'expérimentateur", 
+    masse = "Masse", 
+    taille = "Taille", 
+    tour_poignet = "Tour de poignet", 
+    tour_taille = "Tour de taille", 
+    tour_hanche = "Tour de hanche", 
+    date_mesure = "Date de la mesure", 
+    activite_physique = "Activité physique", 
+    alimentation = "Régime alimentaire",
+    alcool = "Consommation d'alcool", 
+    intolerance_lactose = "Intolérant au lactose",
+    sommeil = "Sommeil", 
+    intolerance_gluten = "Intolérant au gluten", 
+    fast_food = "Fast-food",
+    sucre = "Consommation de sucre",
+    fumeur = "Fumeur", 
+    cortisone = "Cortisone", 
+    eau = "Consommation d'eau"),
+  units = list(
+    id = "NA", 
+    date_naissance = "NA",
+    genre = "NA", 
+    masse_std_ref = "kg", 
+    masse_std = "kg", 
+    masse = "kg", 
+    taille = "cm", 
+    tour_poignet = "cm", 
+    tour_taille = "cm", 
+    tour_hanche = "cm", 
+    date_mesure = "NA", 
+    activite_physique = "min/sem", 
+    alimentation = "NA", 
+    alcool = "verre/sem", 
+    intolerance_lactose = "NA", 
+    sommeil = "h/j", 
+    intolerance_gluten = "NA", 
+    fast_food = "nbr/mois", 
+    sucre ="NA", 
+    fumeur = "nbr cigarettes/sem", 
+    cortisone = "NA", 
+    eau = "L/j"))
 
 
 # Sauvegarde local des données importantes 
