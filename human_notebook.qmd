@@ -71,7 +71,10 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 3
 
 ```{r student3}
-
+chart(biometry, ~ masse %fill=% sucre )+
+  geom_histogram(bins=20)
+biometry %>.%
+  sselect(.,masse,sucre,)
 ```
 
 ...Vos deux descriptions ici...
