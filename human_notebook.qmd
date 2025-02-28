@@ -188,13 +188,22 @@ chart(biometry, ~ masse) +
 
 ```{r indice4}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-
+biometry$rth <- biometry$tour_taille/biometry$tour_hanche 
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
 
 ```{r plot_indice4}
 # Graphique ou tableau utilisant l'indice calculé.
+biometry_H <- sfilter(biometry, genre == "H")
+chart(biometry_H, ~rth ) +
+  geom_histogram() +
+ylab("Effectifs")
+
+biometry_F <- sfilter(biometry, genre == "F")
+chart(biometry_F, ~rth ) +
+  geom_histogram() +
+  ylab("Effectifs")
 
 ```
 
