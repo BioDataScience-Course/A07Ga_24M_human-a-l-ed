@@ -1,6 +1,6 @@
 # Étude de l'obésité - Importation et remaniement des données
-# Auteur : ___
-# Date : ____
+# Auteur : Minique Maëra, Baurain Arthur, Boulaki Rohan, Dobbles Robert
+# Date : 28/02/2025
 ###############################################################################
 
 # Packages utiles
@@ -79,3 +79,4 @@ write$rds(biometry_metadata, "data/biometry_metadata.rds", compress = "xz")
 
 # Élimination des objets de l'environnement global
 rm(biometry_metadata, biometry)
+
