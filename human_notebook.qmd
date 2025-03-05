@@ -104,13 +104,18 @@ biometry$masse_rec <- cut(biometry$masse,
 )
 
 chart(biometry, ~ masse) +
-    geom_histogram()
+    geom_histogram(bins = 20)+
+  ylab("Effectifs")
 
    biometry_tab <- table(masse = biometry$masse_rec ,age =  biometry$age_rec)
    tabularise(biometry_tab)
 ```
 
 ...Vos deux descriptions ici...
+
+-   Le graphique nous montre deux pics d'effectifs entre 60 et 80 kg et 80 et 100 kg. Peu de personnes se trouvent aux extrêmes (40 kg et 120 kg ou plus).
+
+-   
 
 ## Calcul d'indices
 
