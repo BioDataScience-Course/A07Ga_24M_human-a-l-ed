@@ -63,9 +63,15 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 
 ```{r student2}
 chart(biometry, ~ activite_physique %fill=% sucre) + geom_histogram(bins = 10)
-sfilter(biometry, activite_physique, sucre) %>.%
-sselect(., genre)
-tabularise(B_ap_sucre)
+## Recodage de biometry$activite_physique en biometry$activite_physique_rec
+biometry$activite_physique_rec <- cut(biometry$activite_physique,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 4,
+  breaks = c(0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600))
+
+sselect(biometry, biometry$activite_physique_rec , sucre) %>.%
+tabularise(.)
 ```
 
 ...Vos deux descriptions ici...
