@@ -63,9 +63,15 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 
 ```{r student2}
 chart(biometry, ~ activite_physique %fill=% sucre) + geom_histogram(bins = 10)
-sfilter(biometry, activite_physique, sucre) %>.%
-sselect(., genre)
-tabularise(B_ap_sucre)
+## Recodage de biometry$activite_physique en biometry$activite_physique_rec
+biometry$activite_physique_rec <- cut(biometry$activite_physique,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 4,
+  breaks = c(0, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600))
+
+sselect(biometry, biometry$activite_physique_rec , sucre) %>.%
+tabularise(.)
 ```
 
 ...Vos deux descriptions ici...
@@ -77,8 +83,10 @@ On voit que la consommation de sucre diminue avec la réalisation d'activité ph
 ```{r student3}
 chart(biometry, ~ masse %fill=% sucre )+
   geom_histogram(bins=20)
-biogenre <- ssummarise(sgroup_by(biometry, genre),
-  "n"       = fn(masse))
+biogenre <- ssummarise(sgroup_by(biometry, sucre,genre),
+  "n"       = fn(masse),
+  "poids moyen"=fmean(masse)
+  )
 tabularise(biogenre)
 ```
 
@@ -181,23 +189,30 @@ poids_ideal <- (biometry$taille - 100 + 4 * biometry$tour_poignet)
 
 ```{r indice3}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-
+biometry$imc <- biometry$masse / ((biometry$taille/100) ^ 2)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
 
 ```{r plot_indice3}
 # Graphique ou tableau utilisant l'indice calculé.
-
+chart(biometry, ~imc %fill=% genre)+
+  geom_histogram()+
+  geom_vline(xintercept = c(18.5, 25, 30), linetype = "dashed", color = "red")  +
+  annotate("text", x = 18.5, y = Inf, label = "Sous-poids",hjust = 1.1,vjust = 1.5)+
+  annotate("text", x = 25, y = Inf, label = "Poids normal",hjust = 1.2,vjust = 1.5) +
+  annotate("text", x = 30, y = Inf, label = "Surpoids",hjust = 1.2,vjust = 1.5) +
+  annotate("text", x = 30, y = Inf, label = "obesité",hjust = -0.2,vjust = 1.5)+
+  labs(title = "Distribution de l'IMC", x = "IMC", y = "Effectifs")
 ```
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
 
--   ...
+-   L'IMC n'est pas significativement différent entre homme et femme car il prend en compte la taille qui est en moyenne plus élevé chez les homme, ceci compense pour la moyenne du poids des hommes étant plus élevé que chez les femmes.
 
--   ...
+-   La majorité des personnes étudiés se trouvent dans la catégorie Poids normal ou Surpoids.
 
--   ...
+-   Ce graphique est asymétrique car il y a plus de personnes à l’extrême du coté droit.
 
 ### Indice 4
 
