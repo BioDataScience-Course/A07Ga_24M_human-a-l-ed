@@ -212,7 +212,7 @@ chart(biometry, ~imc %fill=% genre)+
 
 -   La majorité des personnes étudiés se trouvent dans la catégorie Poids normal ou Surpoids.
 
--   Ce graphique est asymétrique car il y a plus de personnes à l’extrême du coté droit.
+-   Ce graphique est asymétrique car il y a plus de personnes à l'extrême du coté droit.
 
 ### Indice 4
 
