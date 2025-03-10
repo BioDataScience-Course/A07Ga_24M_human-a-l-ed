@@ -221,32 +221,45 @@ biometry$rth <- biometry$tour_taille/biometry$tour_hanche
 
 ```{r plot_indice4}
 # Graphique ou tableau utilisant l'indice calculé.
+
 biometry_H <- sfilter(biometry, genre == "H")
-chart(biometry_H, ~rth ) +
-  geom_histogram() +
+chart(biometry_H, ~rth) +
+  geom_histogram(bins = 25, color = "red") +
 ylab("Effectifs") +
-geom_vline(xintercept = 0.95, color = "red", size = 1.5)+
+geom_vline(xintercept = 0.95, color = "yellow", size = 1.5)+
   labs(title = "Effectifs des ratios tour de taille tour de hanche chez les hommes")
 
+biometry_H <- smutate(biometry, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
+  rth < 0.95 ~ "normal"))
+
+
 biometry_F <- sfilter(biometry, genre == "F")
-chart(biometry_F, ~rth ) +
-  geom_histogram() +
+chart(biometry_F, ~rth) +
+  geom_histogram(bins = 25, color = "red") +
   ylab("Effectifs") +
-geom_vline(xintercept = 0.85, color = "red", size = 1.5)+
+geom_vline(xintercept = 0.85, color = "yellow", size = 1.5)+
   labs(title = "Effectifs des ratios tour de taille tour de hanche chez les femmes")
+
+biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
+  rth < 0.85 ~ "normal"))
 
 
 ```
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
 
--   ...
+-   Chez les hommes, on observe que moins de 50% d'entre-eux sont à haut risque d'obésité si l'on regarder leur rapport rth. La majorité de nos observations chez les hommes sont donc "normales"
 
 <!-- -->
+<<<<<<< HEAD
 
 -   ...
+=======
+>>>>>>> 5ee85cf6ca48694ee6fb1eb96d875897f0326518
 
--   ...
+-   Chez les femmes, la tendance n'est pas la même. En nous basant sur le ratio rth, nous nous rapprochons un peu plus du 50-50 entre les individus observés normaux et à haut risque d'obésité.
+
+-   Nous pouvons émettre l'hypothèse que les femmes on est ratio rth plus élevé que les hommes en règle générale et que cela amènerait à un constat d'une plus grande tendance à l'obésité chez les femmes que chez les hommes.
 
 ## Tests d'hypothèses
 
