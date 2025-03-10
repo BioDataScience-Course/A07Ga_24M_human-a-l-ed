@@ -251,11 +251,6 @@ biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du 
 -   Chez les hommes, on observe que moins de 50% d'entre-eux sont à haut risque d'obésité si l'on regarder leur rapport rth. La majorité de nos observations chez les hommes sont donc "normales"
 
 <!-- -->
-<<<<<<< HEAD
-
--   ...
-=======
->>>>>>> 5ee85cf6ca48694ee6fb1eb96d875897f0326518
 
 -   Chez les femmes, la tendance n'est pas la même. En nous basant sur le ratio rth, nous nous rapprochons un peu plus du 50-50 entre les individus observés normaux et à haut risque d'obésité.
 
