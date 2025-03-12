@@ -173,7 +173,7 @@ give_n <- function(x)
 
 ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
   geom_boxplot(na.rm = TRUE) +
-  scale_fill_manual(values = c("#00AFBB", "#FFC0CB")) + stat_summary(fun.data = give_n, geom = "text", hjust = 0.5, na.rm = TRUE)
+  scale_fill_manual(values = c("#00AFBB", "#FFC0CB")) + stat_summary(fun.data = give_n, geom = "text", hjust = 0.5, na.rm = TRUE) + labs(y = "Poids idéal", x = "Genre")
 ```
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
