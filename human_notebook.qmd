@@ -166,16 +166,21 @@ poids_ideal <- (biometry$taille - 100 + 4 * biometry$tour_poignet)
 
 ```{r plot_indice2}
 # Graphique ou tableau utilisant l'indice calculé.
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
 
+ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
+  geom_boxplot(na.rm = TRUE) +
+  scale_fill_manual(values = c("#00AFBB", "#FFC0CB")) + stat_summary(fun.data = give_n, geom = "text", hjust = 0.5, na.rm = TRUE)
 ```
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
 
--   ...
+-   Le poids idéal (métrique calculée) des hommes est suppérieur à celui des femmes
 
--   ...
+-   Nous avons quelques valeurs extrêmes chez les hommes de façon générale
 
--   ...
+-   La dispersion des valeurs centrales est plus importante chez les femmes que chez les hommes dans notre échantillonage
 
 ### Indice 3
 
