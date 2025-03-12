@@ -159,7 +159,9 @@ chart(biometry, ~ masse) +
 
 ```{r indice2}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-poids_ideal <- (biometry$taille - 100 + 4 * biometry$tour_poignet)
+# Formule de Lorentz avec correction basée sur la morphologie osseuse
+poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
+poids_ideal
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
