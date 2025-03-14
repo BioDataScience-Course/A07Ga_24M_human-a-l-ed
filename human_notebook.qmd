@@ -281,7 +281,9 @@ biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse d
 
 ```{r plot_chi2_1}
 #Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-chi2_premier <- 
+fselect(biometry, poids_ideal, age, genre) -> test2401
+test2401
+  
 ```
 
 <!--% Hypothèse nulle et alternative -->
