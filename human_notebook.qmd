@@ -299,15 +299,25 @@ chi2_premier <-
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_chi2_2}
-biometry_H%>.%
-  sfilter(.,genre=="H")%>.%
-  smutate(.,biometry_H$imc <- biometry$masse_corr / ((biometry$taille/100) ^ 2))
-biometry_H<-smutate(biometry, imc_levels = case_when(
+biometry_H<-smutate(biometry_H,biometry_H$imc <- biometry_H$masse_corr / ((biometry_H$taille/100) ^ 2))
+biometry_H<-smutate(biometry_H, imc_levels = case_when(
   imc<18.5 ~ "sous-poids",
   imc>=18.5 & imc< 25 ~ "poids normal",
   imc>=25 & imc<30~"surpoids",
   imc>=30~"obesité"
 ))
+biometry_F<-smutate(biometry_F,
+  biometry_F$imc <- biometry_F$masse_corr /((biometry_F$taille/100) ^ 2))
+biometry_F<-smutate(biometry_F, imc_levels = case_when(
+  imc<18.5 ~ "sous-poids",
+  imc>=18.5 & imc< 25 ~ "poids normal",
+  imc>=25 & imc<30~"surpoids",
+  imc>=30~"obesité"
+))
+table_F<-table(IMC=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
+tabularise(table_F)
+table_H<-table(IMC=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
+tabularise(table_H)
 
 
 
