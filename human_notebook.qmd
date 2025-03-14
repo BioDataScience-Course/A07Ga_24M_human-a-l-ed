@@ -160,7 +160,7 @@ chart(biometry, ~ masse) +
 ```{r indice2}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
 # Formule de Lorentz avec correction basée sur la morphologie osseuse
-poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
+biometry$poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
 poids_ideal
 ```
 
@@ -281,7 +281,7 @@ biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse d
 
 ```{r plot_chi2_1}
 #Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-fselect(biometry, poids_ideal, age, genre) -> test2401
+sselect(biometry, poids_ideal, age, genre) -> test2401
 test2401
   
 ```
@@ -334,7 +334,8 @@ tabularise(table_H)
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_2}
-chisq.test(test2_table)
+chisq.test(table_H)
+chisq.test(table_F)
 ```
 
 <!--% Interprétation statistique et biologique -->
