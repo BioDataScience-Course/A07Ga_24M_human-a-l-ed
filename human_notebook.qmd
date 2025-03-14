@@ -370,6 +370,10 @@ chisq.test(table_F)
 
 <!--% Hypothèse nulle et alternative -->
 
+-   H0 : mean(imc_F) - mean(imc_H) = 0
+
+-   H1 : mean(imc_F) - mean(imc_H) /= 0
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_t_2}
