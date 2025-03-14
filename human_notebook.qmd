@@ -165,7 +165,7 @@ chart(biometry, ~ masse) +
 ```{r indice2}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
 # Formule de Lorentz avec correction basée sur la morphologie osseuse
-poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
+biometry$poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
 poids_ideal
 ```
 
@@ -286,7 +286,7 @@ biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse d
 
 ```{r plot_chi2_1}
 #Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-fselect(biometry, poids_ideal, age, genre) -> test2401
+sselect(biometry, poids_ideal, age, genre) -> test2401
 test2401
   
 ```
@@ -321,9 +321,9 @@ biometry_F<-smutate(biometry_F, imc_levels = case_when(
   imc>=25 & imc<30~"surpoids",
   imc>=30~"obesité"
 ))
-table_F<-table(IMC=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
+table_F<-table(IMC_F=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
 tabularise(table_F)
-table_H<-table(IMC=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
+table_H<-table(IMC_H=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
 tabularise(table_H)
 
 
@@ -339,7 +339,8 @@ tabularise(table_H)
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_2}
-chisq.test(test2_table)
+chisq.test(table_H)
+chisq.test(table_F)
 ```
 
 <!--% Interprétation statistique et biologique -->
@@ -373,6 +374,10 @@ chisq.test(test2_table)
 ```
 
 <!--% Hypothèse nulle et alternative -->
+
+-   H0 : mean(imc_F) - mean(imc_H) = 0
+
+-   H1 : mean(imc_F) - mean(imc_H) /= 0
 
 <!--% Vérification des conditions d'application -->
 
