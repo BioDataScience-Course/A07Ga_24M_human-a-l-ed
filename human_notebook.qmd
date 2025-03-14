@@ -234,7 +234,9 @@ chart(biometry_H, ~rth) +
   geom_histogram(bins = 25, color = "red") +
 ylab("Effectifs") +
 geom_vline(xintercept = 0.95, color = "yellow", size = 1.5)+
-  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les hommes")
+  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les hommes") +
+  annotate("text", x = 0.95, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
+  annotate("text", x = 0.95, y = Inf, label = "Hausse du risque",hjust = -0.4,vjust = 1.5)
 
 biometry_H <- smutate(biometry, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
   rth < 0.95 ~ "normal"))
@@ -245,7 +247,9 @@ chart(biometry_F, ~rth) +
   geom_histogram(bins = 25, color = "red") +
   ylab("Effectifs") +
 geom_vline(xintercept = 0.85, color = "yellow", size = 1.5)+
-  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les femmes")
+  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les femmes") +
+  annotate("text", x = 0.85, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
+  annotate("text", x = 0.85, y = Inf, label = "Hausse du risque",hjust = -0.5,vjust = 1.5)
 
 biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
   rth < 0.85 ~ "normal"))
