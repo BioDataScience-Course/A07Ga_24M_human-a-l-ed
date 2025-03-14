@@ -334,7 +334,8 @@ tabularise(table_H)
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_2}
-chisq.test(test2_table)
+chisq.test(table_H)
+chisq.test(table_F)
 ```
 
 <!--% Interprétation statistique et biologique -->
