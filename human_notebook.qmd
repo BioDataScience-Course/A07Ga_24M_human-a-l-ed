@@ -178,7 +178,7 @@ ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
 
--   Le poids idéal (métrique calculée) des hommes est suppérieur à celui des femmes
+-   Le poids idéal (métrique calculée) des hommes est supérieur à celui des femmes
 
 -   Nous avons quelques valeurs extrêmes chez les hommes de façon générale
 
@@ -274,7 +274,8 @@ biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_chi2_1}
-
+#Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
+chi2_premier <- 
 ```
 
 <!--% Hypothèse nulle et alternative -->
