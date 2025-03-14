@@ -159,23 +159,30 @@ chart(biometry, ~ masse_corr) +
 
 ```{r indice2}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-poids_ideal <- (biometry$taille - 100 + 4 * biometry$tour_poignet)
+# Formule de Lorentz avec correction basée sur la morphologie osseuse
+poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
+poids_ideal
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
 
 ```{r plot_indice2}
 # Graphique ou tableau utilisant l'indice calculé.
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
 
+ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
+  geom_boxplot(na.rm = TRUE) +
+  scale_fill_manual(values = c("#00AFBB", "#FFC0CB")) + stat_summary(fun.data = give_n, geom = "text", hjust = 0.5, na.rm = TRUE) + labs(y = "Poids idéal", x = "Genre")
 ```
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
 
--   ...
+-   Le poids idéal (métrique calculée) des hommes est suppérieur à celui des femmes
 
--   ...
+-   Nous avons quelques valeurs extrêmes chez les hommes de façon générale
 
--   ...
+-   La dispersion des valeurs centrales est plus importante chez les femmes que chez les hommes dans notre échantillonage
 
 ### Indice 3
 
@@ -227,7 +234,9 @@ chart(biometry_H, ~rth) +
   geom_histogram(bins = 25, color = "red") +
 ylab("Effectifs") +
 geom_vline(xintercept = 0.95, color = "yellow", size = 1.5)+
-  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les hommes")
+  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les hommes") +
+  annotate("text", x = 0.95, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
+  annotate("text", x = 0.95, y = Inf, label = "Hausse du risque",hjust = -0.4,vjust = 1.5)
 
 biometry_H <- smutate(biometry, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
   rth < 0.95 ~ "normal"))
@@ -238,7 +247,9 @@ chart(biometry_F, ~rth) +
   geom_histogram(bins = 25, color = "red") +
   ylab("Effectifs") +
 geom_vline(xintercept = 0.85, color = "yellow", size = 1.5)+
-  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les femmes")
+  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les femmes") +
+  annotate("text", x = 0.85, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
+  annotate("text", x = 0.85, y = Inf, label = "Hausse du risque",hjust = -0.5,vjust = 1.5)
 
 biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
   rth < 0.85 ~ "normal"))
