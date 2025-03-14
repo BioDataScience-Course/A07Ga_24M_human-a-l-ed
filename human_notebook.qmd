@@ -75,11 +75,11 @@ On voit que la consommation de sucre diminue avec la réalisation d'activité ph
 ### Description par l'étudiant 3
 
 ```{r student3}
-chart(biometry, ~ masse_corr %fill=% sucre )+
+chart(biometry, ~ masse %fill=% sucre )+
   geom_histogram(bins=20)
 biogenre <- ssummarise(sgroup_by(biometry, sucre,genre),
-  "n"       = fn(masse_corr),
-  "poids moyen"=fmean(masse_corr)
+  "n"       = fn(masse),
+  "poids moyen"=fmean(masse)
   )
 tabularise(biogenre)
 ```
@@ -98,14 +98,14 @@ biometry$age_rec <- cut(biometry$age,
 )
   
   ## Recodage de biometry$masse en biometry$masse_rec
-biometry$masse_rec <- cut(biometry$masse_corr,
+biometry$masse_rec <- cut(biometry$masse,
   include.lowest = TRUE,
   right = FALSE,
   dig.lab = 4,
   breaks = c(40, 50, 60, 70, 80, 90, 100, 120, 130)
 )
 
-chart(biometry, ~ masse_corr) +
+chart(biometry, ~ masse) +
     geom_histogram(bins = 20)+
   ylab("Effectifs")
 
@@ -190,7 +190,7 @@ ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
 
 ```{r indice3}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-biometry$imc <- biometry$masse_corr / ((biometry$taille/100) ^ 2)
+biometry$imc <- biometry$masse / ((biometry$taille/100) ^ 2)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
@@ -308,7 +308,7 @@ biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du 
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_2}
-
+chisq.test(test2_table)
 ```
 
 <!--% Interprétation statistique et biologique -->
