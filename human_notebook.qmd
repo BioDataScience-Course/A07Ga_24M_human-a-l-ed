@@ -377,7 +377,8 @@ chisq.test(table_F)
 <!--% Vérification des conditions d'application -->
 
 ```{r test_t_2}
-
+t.test(data = biometry, mean ~ genre,
+  alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
 ```
 
 <!--% Interprétation statistique et biologique -->
