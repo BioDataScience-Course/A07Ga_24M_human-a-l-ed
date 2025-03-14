@@ -161,7 +161,7 @@ chart(biometry, ~ masse) +
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
 # Formule de Lorentz avec correction basée sur la morphologie osseuse
 biometry$poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
-poids_ideal
+biometry$poids_ideal
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
@@ -287,6 +287,7 @@ sselect(biometry, poids_ideal, age, genre) %>.%
     age >= 18 & age < 29 ~ "Jeune adulte",
     age >= 29 & age < 60 ~ "Adulte",
     age >= 60 ~ "Senior")) %>.%
+  sgroup_by(., age_levels) %>.%
 tabularise(.)
 ```
 
