@@ -365,7 +365,17 @@ chisq.test(table_F)
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_t_2}
+chart(biometry, imc ~ genre) +
+  geom_boxplot()
 
+biometry %>.%
+  group_by(., genre) %>.% 
+  summarise(.,
+    mean = mean(imc, na.rm = TRUE),
+    var  = var(imc, na.rm = TRUE),
+    n = n()) -> imc_tab 
+
+imc_tab
 ```
 
 <!--% Hypothèse nulle et alternative -->
