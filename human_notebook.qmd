@@ -75,11 +75,11 @@ On voit que la consommation de sucre diminue avec la réalisation d'activité ph
 ### Description par l'étudiant 3
 
 ```{r student3}
-chart(biometry, ~ masse %fill=% sucre )+
+chart(biometry, ~ masse_corr %fill=% sucre )+
   geom_histogram(bins=20)
 biogenre <- ssummarise(sgroup_by(biometry, sucre,genre),
-  "n"       = fn(masse),
-  "poids moyen"=fmean(masse)
+  "n"       = fn(masse_corr),
+  "poids moyen"=fmean(masse_corr)
   )
 tabularise(biogenre)
 ```
@@ -98,14 +98,14 @@ biometry$age_rec <- cut(biometry$age,
 )
   
   ## Recodage de biometry$masse en biometry$masse_rec
-biometry$masse_rec <- cut(biometry$masse,
+biometry$masse_rec <- cut(biometry$masse_corr,
   include.lowest = TRUE,
   right = FALSE,
   dig.lab = 4,
   breaks = c(40, 50, 60, 70, 80, 90, 100, 120, 130)
 )
 
-chart(biometry, ~ masse) +
+chart(biometry, ~ masse_corr) +
     geom_histogram(bins = 20)+
   ylab("Effectifs")
 
@@ -183,7 +183,7 @@ poids_ideal <- (biometry$taille - 100 + 4 * biometry$tour_poignet)
 
 ```{r indice3}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-biometry$imc <- biometry$masse / ((biometry$taille/100) ^ 2)
+biometry$imc <- biometry$masse_corr / ((biometry$taille/100) ^ 2)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
