@@ -53,6 +53,11 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 1
 
 ```{r student1}
+chart(biometry, tour_taille ~ masse_corr)+
+  geom_point()
+
+
+
 
 
 ```
