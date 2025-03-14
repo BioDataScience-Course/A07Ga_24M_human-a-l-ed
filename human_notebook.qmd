@@ -230,6 +230,7 @@ biometry$rth <- biometry$tour_taille/biometry$tour_hanche
 # Graphique ou tableau utilisant l'indice calculé.
 
 biometry_H <- sfilter(biometry, genre == "H")
+
 chart(biometry_H, ~rth) +
   geom_histogram(bins = 25, color = "red") +
 ylab("Effectifs") +
@@ -238,11 +239,12 @@ geom_vline(xintercept = 0.95, color = "yellow", size = 1.5)+
   annotate("text", x = 0.95, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
   annotate("text", x = 0.95, y = Inf, label = "Hausse du risque",hjust = -0.4,vjust = 1.5)
 
-biometry_H <- smutate(biometry, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
+biometry_H <- smutate(biometry_H, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
   rth < 0.95 ~ "normal"))
 
 
 biometry_F <- sfilter(biometry, genre == "F")
+
 chart(biometry_F, ~rth) +
   geom_histogram(bins = 25, color = "red") +
   ylab("Effectifs") +
@@ -251,7 +253,7 @@ geom_vline(xintercept = 0.85, color = "yellow", size = 1.5)+
   annotate("text", x = 0.85, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
   annotate("text", x = 0.85, y = Inf, label = "Hausse du risque",hjust = -0.5,vjust = 1.5)
 
-biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
+biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
   rth < 0.85 ~ "normal"))
 
 
