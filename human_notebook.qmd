@@ -301,6 +301,10 @@ biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du 
 
 <!--% Hypothèse nulle et alternative -->
 
+-   Ho : indépendance de l'IMC et du rth
+
+-   H1 : dépendance de l'IMC et du rth
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_2}
