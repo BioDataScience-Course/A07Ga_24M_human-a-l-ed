@@ -195,7 +195,7 @@ ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
 
 ```{r indice3}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-biometry$imc <- biometry$masse / ((biometry$taille/100) ^ 2)
+biometry$imc <- biometry$masse_corr / ((biometry$taille/100) ^ 2)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
@@ -235,6 +235,7 @@ biometry$rth <- biometry$tour_taille/biometry$tour_hanche
 # Graphique ou tableau utilisant l'indice calculé.
 
 biometry_H <- sfilter(biometry, genre == "H")
+
 chart(biometry_H, ~rth) +
   geom_histogram(bins = 25, color = "red") +
 ylab("Effectifs") +
@@ -243,11 +244,12 @@ geom_vline(xintercept = 0.95, color = "yellow", size = 1.5)+
   annotate("text", x = 0.95, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
   annotate("text", x = 0.95, y = Inf, label = "Hausse du risque",hjust = -0.4,vjust = 1.5)
 
-biometry_H <- smutate(biometry, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
+biometry_H <- smutate(biometry_H, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
   rth < 0.95 ~ "normal"))
 
 
 biometry_F <- sfilter(biometry, genre == "F")
+
 chart(biometry_F, ~rth) +
   geom_histogram(bins = 25, color = "red") +
   ylab("Effectifs") +
@@ -256,7 +258,7 @@ geom_vline(xintercept = 0.85, color = "yellow", size = 1.5)+
   annotate("text", x = 0.85, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
   annotate("text", x = 0.85, y = Inf, label = "Hausse du risque",hjust = -0.5,vjust = 1.5)
 
-biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
+biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
   rth < 0.85 ~ "normal"))
 
 
@@ -284,7 +286,9 @@ biometry_F <- smutate(biometry, rth_levels = case_when(rth >= 0.85 ~ "Hausse du 
 
 ```{r plot_chi2_1}
 #Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-chi2_premier <- 
+fselect(biometry, poids_ideal, age, genre) -> test2401
+test2401
+  
 ```
 
 <!--% Hypothèse nulle et alternative -->
@@ -302,6 +306,27 @@ chi2_premier <-
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_chi2_2}
+biometry_H<-smutate(biometry_H,biometry_H$imc <- biometry_H$masse_corr / ((biometry_H$taille/100) ^ 2))
+biometry_H<-smutate(biometry_H, imc_levels = case_when(
+  imc<18.5 ~ "sous-poids",
+  imc>=18.5 & imc< 25 ~ "poids normal",
+  imc>=25 & imc<30~"surpoids",
+  imc>=30~"obesité"
+))
+biometry_F<-smutate(biometry_F,
+  biometry_F$imc <- biometry_F$masse_corr /((biometry_F$taille/100) ^ 2))
+biometry_F<-smutate(biometry_F, imc_levels = case_when(
+  imc<18.5 ~ "sous-poids",
+  imc>=18.5 & imc< 25 ~ "poids normal",
+  imc>=25 & imc<30~"surpoids",
+  imc>=30~"obesité"
+))
+table_F<-table(IMC=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
+tabularise(table_F)
+table_H<-table(IMC=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
+tabularise(table_H)
+
+
 
 ```
 
