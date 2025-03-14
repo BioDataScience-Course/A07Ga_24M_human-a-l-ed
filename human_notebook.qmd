@@ -316,9 +316,9 @@ biometry_F<-smutate(biometry_F, imc_levels = case_when(
   imc>=25 & imc<30~"surpoids",
   imc>=30~"obesité"
 ))
-table_F<-table(IMC=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
+table_F<-table(IMC_F=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
 tabularise(table_F)
-table_H<-table(IMC=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
+table_H<-table(IMC_H=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
 tabularise(table_H)
 
 
