@@ -1,6 +1,6 @@
 ---
-title: "___"
-author: "___, ___, ___, ___"
+title: "Santé humaine liée à l'obésité"
+author: "Maëra Minique, Robert Dobbels, Arthur Baurain, Rohan Boulaki"
 date: "`r Sys.Date()`"
 format:
   html:
