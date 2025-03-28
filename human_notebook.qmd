@@ -53,6 +53,13 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 1
 
 ```{r student1}
+chart(biometry, tour_taille ~ masse_corr )+
+  geom_point()
+sselect(biometry, tour_taille , masse_corr) -> taillemasse
+taillemasse_odr <- arrange(taillemasse, tour_taille)
+tabularise(taillemasse_odr)
+
+
 
 
 ```
@@ -405,20 +412,28 @@ t.test(data = biometry, imc ~ genre,
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_1}
-chart(biometry, fast_food ~ sucre) +
-  geom_violin() +
-  geom_jitter(alpha = 0.8, width = 0.05)
-  stat_summary(geom = "point", fun = "mean", color = "red", size = 1)
+
 ```
 
 <!--% Hypothèse nulle et alternative -->
 
+
+<!--% Vérification des conditions d'application -->
+
 -   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
--   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ <!--% Vérification des conditions d'application -->
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ 
+<!--% Vérification des conditions d'application -->
+
 
 ```{r test_anova1_1}
-bartlett.test(data = biometry, fast_food ~ sucre)
+
 ```
+
+
+<!--% Interprétation statistique et biologique -->
+
+### ANOVA à un facteur 2
+
 
 <!--% Hypothèse nulle et alternative -->
 
@@ -432,37 +447,20 @@ anova(biometry_anova_sucre_ff) %>.%
 
 
 ```
+
 <!--% Interprétation statistique et biologique -->
 
-
-    \### ANOVA à un facteur 2
+```         
+\### ANOVA à un facteur 2
+```
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_2}
-chart(biometry, masse_corr ~ alimentation) +
-  geom_violin() +
-  geom_jitter(width = 0.05, alpha = 0.5) +
-  stat_summary(geom = "point", fun = "mean", color = "red", size = 3) +
-geom_hline(yintercept = mean(biometry$masse_corr), color = "blue", linetype = "dashed", size = 1)
-```
-
-<!--% Hypothèse nulle et alternative -->
-
--   $$H_0 : µ(omnivore) = µ(carnivore) = µ(végétarien)$$
-
--   $$ H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
-
-```{r anova2_1}
-anova(biometry_anova<-lm(data=biometry, masse_corr ~ alimentation))|>tabularise()
 
 ```
 
 <!--% Hypothèse nulle et alternative -->
-
--   $$H_0 : var(omnivore) = var(carnivore) = var(végétarien) (Homoscédasticité) $$
-
--   $$ H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j (Hétéroscédasticité) $$
 
 <!--% Vérification des conditions d'application -->
 
@@ -471,7 +469,8 @@ bartlett.test(data=biometry, masse_corr ~ alimentation)
 ```
 
 <!--% Interprétation statistique et biologique -->
-
+Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371).
+Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
 <!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
 
 ### ANOVA à deux facteurs 1
