@@ -466,8 +466,8 @@ anova(biometry_anova<-lm(data=biometry, masse_corr ~ alimentation))|>tabularise(
 
 <!--% Vérification des conditions d'application -->
 
-```{r test_anova1_2}
-
+```{r bartlett_test_anova1_2}
+bartlett.test(data=biometry, masse_corr ~ alimentation)
 ```
 
 <!--% Interprétation statistique et biologique -->
