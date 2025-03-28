@@ -449,6 +449,15 @@ geom_hline(yintercept = mean(biometry$masse_corr), color = "blue", linetype = "d
 anova(biometry_anova<-lm(data=biometry, masse_corr ~ alimentation))|>tabularise()
 
 ```
+
+
+<!--% Hypothèse nulle et alternative -->
+
+-   $$H_0 : var(omnivore) = var(carnivore) = var(végétarien) (Homoscédasticité) $$
+
+-   $$ H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j (Hétéroscédasticité) $$
+
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova1_2}
