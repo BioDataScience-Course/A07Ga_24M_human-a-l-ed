@@ -31,19 +31,31 @@ SciViews::R("infer", lang = "fr")
 
 <!--# Ce projet porte sur la santé humaine liée à l'obésité, à la façon de se nourrir et aux activités réalisées (plus ou moins sédentaire ou actif) ... Réalisez des recherches bibliographiques afin d'avoir une vision précise de la thématique. Existe-t-il des indicateurs calculables pour quantifier l'état de santé d'un individu, par exemple ? Naturellement, ces indicateurs doivent être calculables sur bases des variables mesurées dans votre jeu de données. Focalisez-vous donc sur ces variables-là. -->
 
-...Votre introduction ici...
+Surpoids et l'obésité sont définies comme une accumulation excessive de graisee corporelle. Une étude réalisée en Belgique en 2014 par l'OMS à montré que l'IMC moyen chez les adultes de 18 à 64 ans était de 26,3. Cela nous indique donc que, en belgique, les adultes sont en moyenne en surpoid. Comme nous le savons, certains facteurs influencent (fortement ou moins fortement) l'IMC (sexe, âge, alimentation, ...). L'analyse ne s'arrête pas en 2014. .En effet, le taux d'obésité en Belgique (et autres pays) a augmenté ces dernières décénnies.
+
+Différents indices (IMC, RTH, tour de taille/taille, ...) existent pour tenter de quantifier le niveau de surpoids des individus. Dans notre projet, nous considérerons ces différents indices afin de déterminer tout d'abord si nos individus observés sont en situation de surpoids, de sous-poids ou en encore de poids "idéal".
+
+Différents facteurs peuvent être à l'origine de cette augmentation du taux d'obésité dans notre pays. @ORBi-3f278e47-adea-4351-9db3-409f47972be6 indique que la consommation de fast-food augmente au cours des années tout comme la consommation de viande jusque dans les années 80 tandis que la consommation de pomme de terre, de céréales et de lait diminue. Les consommations de fruits, de légumes et de sucre ont considérablement augmenté depuis 1980.
+
+Les conséquentes d'un surpoids ou d'une obésité sont multiples sur la santé humaine. Selon l'OMS, une accumulation de graisse abdominale est associée à une augmentation de la pression artérielle et du risque d'hyperinsulinémie. Ce genre de problèmes peuvent mener à des maladies chroniques telles que le diabète de type 2 et les maladies cardiovasculaires. Ces soucis ne sont pas les seuls provoqués par une obésité, celle-ci peut également provoquer des troubles musculaires ou encore plus problématique, des cancers. Chez les individus jeunes (enfants), une obésité augmente le risque d'une mort prématurée et une possible limitation fonctionnelle lors de l'âge adulte.
+
+[@lebacq2015]
 
 # But
 
 <!--% Formulez ici de façon concise et précise votre question de recherche en 1 à 2 phrases. -->
 
-...Votre but ici...
+Cette étude porte à mesurer et comparer les différentes facteurs qui sont liée directement ou pas à l'obésité et si elles affectent ce problème positivement ou négativement.
 
 # Matériel et méthodes
 
 <!--% Cette section doit comprendre une explication technique sur les mesures effectuées et sur le protocole relatif à l'acquisition des données en 3 à 4 paragraphes. Vous ajouterez aussi un paragraphe qui détaille les outils logiciels et statistiques utilisés (logiciels et versions des logiciels). Un simple copier-coller du matériel et méthodes du bloc-notes ne sera PAS considéré comme acceptable. -->
 
-...Votre matmet ici...
+#Les données ont été collectées par un groupe d'une trentaine d'expérimentateurs qui se sont réparti le travail. Le choix des mesures à réaliser a fait l'objet d'un consensus au sein du groupe par l'élaboration d'un dictionnaire des données commun. Les mesures sujettes à variation (la masse plus particulièrement) ont fait l'objet d'une intercalibration. Ces données sont pseudonymisées afin de respecter l'anonymat des sujets étudiés en respect du RGPD (règlement général de la protection des données, règlement d'application en Europe).#
+
+Cette étude porte sur l'analyse de différentes variables liée ou pas à l'obésité, elle a été réalisé par un groupe d'une trentaines d'expérimentateurs qui ont interrogés et mesurer 144 personnes totales sur plusieurs variables. Pour les mesures de la masse, une intercalibration à été effectué au préalable, via l'utilisation d'une balance commune. Les mesures de taille etc... ont été considéré comme assez précise avec des instruments de mesure personelles. Le reste des mesures sont des simples questions posées aux individus
+
+La description des données et les tests statistiques sont réalisés dans la SciViews Box 2024 en utilisant [Saturn Cloud](https://saturncloud.io) (Linux) avec le [logiciel R](https://www.r-project.org) (R version 4.3.0 (2023-04-21) \-- "Already Tomorrow").
 
 # Résultats
 
