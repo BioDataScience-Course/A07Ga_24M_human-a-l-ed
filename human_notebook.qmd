@@ -417,15 +417,33 @@ t.test(data = biometry, imc ~ genre,
 
 <!--% Hypothèse nulle et alternative -->
 
+
 <!--% Vérification des conditions d'application -->
+
+-   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ <!--% Vérification des conditions d'application -->
+
 
 ```{r test_anova1_1}
 
 ```
 
+
 <!--% Interprétation statistique et biologique -->
 
 ### ANOVA à un facteur 2
+
+
+<!--% Hypothèse nulle et alternative -->
+
+-   $$H_0 : var(jamais) = var(rarement) = var(régulièrement) = var(souvent) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j$$
+
+<!--% Interprétation statistique et biologique -->
+
+-   P \< alpha, on rejette Ho donc il n'y a pas d'homoscédasticité : au moins une des variences est significativement différentes au seuil alpha (Bartlett, dll = 3, P \< 2.2e-16)
+
+    \### ANOVA à un facteur 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
