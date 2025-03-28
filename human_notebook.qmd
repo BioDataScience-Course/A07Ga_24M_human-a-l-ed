@@ -412,8 +412,8 @@ chart(biometry, fast_food ~ sucre) +
 ```
 
 <!--% Hypothèse nulle et alternative -->
--   Ho : var1 = var2 = var3 = var4
--   Ha : au moins une des variences est différentes des autres
+-   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova1_1}
