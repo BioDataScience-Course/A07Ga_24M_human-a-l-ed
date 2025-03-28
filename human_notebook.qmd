@@ -416,13 +416,17 @@ chart(biometry, fast_food ~ sucre) +
 -   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
 <!--% Vérification des conditions d'application -->
 
+
 ```{r test_anova1_1}
 bartlett.test(data = biometry, fast_food ~ sucre)
 ```
+<!--% Hypothèse nulle et alternative -->
+-   $$H_0 : var(jamais) = var(rarement) = var(régulièrement) = var(souvent) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j$$
 
 <!--% Interprétation statistique et biologique -->
-- P < alpha, on rejette Ho donc il n'y a pas d'homoscédasticité : au moins une des variences est significativement différentes au seuil alpha (Bartlett, dll = 3, P < 2.2e-16)
-### ANOVA à un facteur 2
+
+-   P \< alpha, on rejette Ho donc il n'y a pas d'homoscédasticité : au moins une des variences est significativement différentes au seuil alpha (Bartlett, dll = 3, P \< 2.2e-16) \### ANOVA à un facteur 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
@@ -440,6 +444,11 @@ geom_hline(yintercept = mean(biometry$masse_corr), color = "blue", linetype = "d
 
 -   $$ H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
 
+
+```{r anova2_1}
+anova(biometry_anova<-lm(data=biometry, masse_corr ~ alimentation))|>tabularise()
+
+```
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova1_2}
