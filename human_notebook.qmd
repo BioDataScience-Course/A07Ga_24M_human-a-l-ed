@@ -416,9 +416,13 @@ chart(biometry, fast_food ~ sucre) +
 -   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
 -   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ <!--% Vérification des conditions d'application -->
 
+
 ```{r test_anova1_1}
 bartlett.test(data = biometry, fast_food ~ sucre)
 ```
+<!--% Hypothèse nulle et alternative -->
+-   $$H_0 : var(jamais) = var(rarement) = var(régulièrement) = var(souvent) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j$$
 
 <!--% Interprétation statistique et biologique -->
 
@@ -444,6 +448,7 @@ geom_hline(yintercept = mean(biometry$masse_corr), color = "blue", linetype = "d
 anova(biometry_anova<-lm(data=biometry, masse_corr ~ alimentation))|>tabularise()
 
 ```
+
 
 <!--% Hypothèse nulle et alternative -->
 
