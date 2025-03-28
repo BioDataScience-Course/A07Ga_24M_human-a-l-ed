@@ -412,17 +412,17 @@ chart(biometry, fast_food ~ sucre) +
 ```
 
 <!--% Hypothèse nulle et alternative -->
+
 -   Ho : var1 = var2 = var3 = var4
--   Ha : au moins une des variences est différentes des autres
-<!--% Vérification des conditions d'application -->
+-   Ha : au moins une des variences est différentes des autres <!--% Vérification des conditions d'application -->
 
 ```{r test_anova1_1}
 bartlett.test(data = biometry, fast_food ~ sucre)
 ```
 
 <!--% Interprétation statistique et biologique -->
-- P < alpha, on rejette Ho donc il n'y a pas d'homoscédasticité : au moins une des variences est significativement différentes au seuil alpha (Bartlett, dll = 3, P < 2.2e-16)
-### ANOVA à un facteur 2
+
+-   P \< alpha, on rejette Ho donc il n'y a pas d'homoscédasticité : au moins une des variences est significativement différentes au seuil alpha (Bartlett, dll = 3, P \< 2.2e-16) \### ANOVA à un facteur 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
