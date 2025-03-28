@@ -421,7 +421,8 @@ t.test(data = biometry, imc ~ genre,
 <!--% Vérification des conditions d'application -->
 
 -   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
--   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ <!--% Vérification des conditions d'application -->
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ 
+<!--% Vérification des conditions d'application -->
 
 
 ```{r test_anova1_1}
