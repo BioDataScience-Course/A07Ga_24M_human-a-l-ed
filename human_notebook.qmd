@@ -425,9 +425,15 @@ bartlett.test(data = biometry, fast_food ~ sucre)
 -   $$H_0 : var(jamais) = var(rarement) = var(régulièrement) = var(souvent) $$
 -   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j$$
 
+```{r anova2_1}
+biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
+anova(biometry_anova_sucre_ff) %>.%
+  tabularise(.)
+
+
+```
 <!--% Interprétation statistique et biologique -->
 
--   P \< alpha, on rejette Ho donc il n'y a pas d'homoscédasticité : au moins une des variences est significativement différentes au seuil alpha (Bartlett, dll = 3, P \< 2.2e-16)
 
     \### ANOVA à un facteur 2
 
