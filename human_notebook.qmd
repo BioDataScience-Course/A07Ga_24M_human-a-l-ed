@@ -417,43 +417,48 @@ t.test(data = biometry, imc ~ genre,
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
+
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
+
 <!--% Vérification des conditions d'application -->
 
--   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
--   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ <!--% Vérification des conditions d'application -->
-
 ```{r test_anova1_1}
-
+biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
+anova(biometry_anova_sucre_ff) %>.%
+  tabularise(.)
 ```
 
 <!--% Interprétation statistique et biologique -->
 
 ### ANOVA à un facteur 2
 
-<!--% Hypothèse nulle et alternative -->
-
--   $$H_0 : var(jamais) = var(rarement) = var(régulièrement) = var(souvent) $$
--   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j$$
-
-```{r anova2_1}
-biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
-anova(biometry_anova_sucre_ff) %>.%
-  tabularise(.)
-
-
-```
-
-<!--% Interprétation statistique et biologique -->
-
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_2}
-
+chart(data = biometry, masse_corr ~ alimentation) +
+  geom_violin() +
+  geom_jitter(width = 0.05, alpha = 0.5) +
+  stat_summary(geom = "point", fun = "mean", color = "red", size = 3)
 ```
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : µ(omnivore) = µ(végétarien) = µ(carnivore) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
+
+```{r anova2_1}
+anova(biometry_anova_massali <-lm(data = biometry, masse_corr ~ alimentation)) |>tabularise()
+
+
+```
+
 <!--% Vérification des conditions d'application -->
+
+<!--% Hypothèse nulle et alternative -->
+
+-   $$H_0 : var(omnivore) = var(végétarien) = var(carnivore) (homoscédasticité) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j (hétéroscédasticité)$$
 
 ```{r bartlett_test_anova1_2}
 bartlett.test(data=biometry, masse_corr ~ alimentation)
