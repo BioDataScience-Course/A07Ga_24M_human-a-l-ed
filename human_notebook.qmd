@@ -424,6 +424,9 @@ t.test(data = biometry, imc ~ genre,
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova1_1}
+	
+bartlett.test(data = biometry, fast_food ~ sucre)
+
 biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
 anova(biometry_anova_sucre_ff) %>.%
   tabularise(.)
