@@ -445,10 +445,6 @@ anova(biometry_anova_sucre_ff) %>.%
 
 <!--% Interprétation statistique et biologique -->
 
-```         
-\### ANOVA à un facteur 2
-```
-
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_2}
