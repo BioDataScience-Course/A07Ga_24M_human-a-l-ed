@@ -288,12 +288,13 @@ biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse d
 
 ```{r plot_chi2_1}
 #Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-smutate(biometry, masse_corr_levels = case_when(
-    masse_corr < 50 ~ "Très mince",
-    masse_corr >= 50  & masse_corr < 60 ~ "Mince",
-    masse_corr >= 60 & masse_corr < 75 ~ "Normal",
-    masse_corr >= 75 & masse_corr < 90 ~ "Surpoids",
-    masse_corr >= 90 ~ "Surpoids")) %>.%
+smutate(biometry, poids_ideal_age <- sgroup_by(biometry, poids_ideal, age))
+smutate(biometry, poids_ideal_age = case_when(
+    poids_ideal < 50 ~ "Très mince",
+    poids_ideal >= 50  & poids_ideal < 60 ~ "Mince",
+    poids_ideal >= 60 & poids_ideal < 75 ~ "Normal",
+    poids_ideal >= 75 & poids_ideal < 90 ~ "Surpoids",
+    poids_ideal >= 90 ~ "Surpoids")) %>.%
 ssummarise(sgroup_by(., age_rec, poids_ideal, genre, masse_corr_levels)) %>.%
 tabularise(.)
 ```
@@ -412,7 +413,10 @@ t.test(data = biometry, imc ~ genre,
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_1}
-
+chart(data = biometry, fast_food ~ sucre) +
+  geom_violin() +
+  geom_jitter(width = 0.05, alpha = 0.5) +
+  stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
 ```
 
 <!--% Hypothèse nulle et alternative -->
@@ -469,7 +473,9 @@ bartlett.test(data=biometry, masse_corr ~ alimentation)
 
 <!--% Interprétation statistique et biologique -->
 
-Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant. <!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
+Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
+
+<!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
 
 ### ANOVA à deux facteurs 1
 
