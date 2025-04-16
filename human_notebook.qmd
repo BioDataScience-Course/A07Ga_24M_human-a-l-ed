@@ -287,24 +287,49 @@ biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse d
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_chi2_1}
-#Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-smutate(biometry, poids_ideal_age <- sgroup_by(biometry, poids_ideal, age))
-smutate(biometry, poids_ideal_age = case_when(
-    poids_ideal < 50 ~ "Très mince",
-    poids_ideal >= 50  & poids_ideal < 60 ~ "Mince",
-    poids_ideal >= 60 & poids_ideal < 75 ~ "Normal",
-    poids_ideal >= 75 & poids_ideal < 90 ~ "Surpoids",
-    poids_ideal >= 90 ~ "Surpoids")) %>.%
-ssummarise(sgroup_by(., age_rec, poids_ideal, genre, masse_corr_levels)) %>.%
-tabularise(.)
+biometry$tranche_age <- cut(
+  biometry$age,
+  breaks = c(0, 18, 24, 34, 44, 54, 64, 74, 100),
+  labels = c("0-18", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-100"),
+  right = FALSE,
+  include.lowest = TRUE)
+
+biometry_Pi_AP <- biometry %>%
+  group_by(tranche_age) %>%
+  summarise(poids_ideal_moyen = mean(poids_ideal, na.rm = TRUE),
+    activite_physique_moyenne = mean(activite_physique, na.rm = TRUE),
+       "Nombre de personnes" = n()) %>%
+  arrange(tranche_age)
+  
+tabularise(biometry_Pi_AP)
 ```
 
 <!--% Hypothèse nulle et alternative -->
 
+-   Ho : indépendance du poids idéal et de l'activité physique
+
+-   H1 : dépendance du poids idéal et de l'activité physique
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_1}
+biometry$cat_poids <- cut(
+  biometry$poids_ideal,
+  breaks = quantile(biometry$poids_ideal, probs = seq(0, 1, 0.25), na.rm = TRUE),
+  include.lowest = TRUE,
+  labels = c("Bas", "Moyen-", "Moyen+", "Haut")
+)
 
+biometry$cat_AP <- cut(
+  biometry$activite_physique,
+  breaks = quantile(biometry$activite_physique, probs = seq(0, 1, 0.25), na.rm = TRUE),
+  include.lowest = TRUE,
+  labels = c("Faible", "Modérée-", "Modérée+", "Élevée")
+)
+
+tab_poids_ideal_x_activite_physique <- table(biometry$cat_poids, biometry$cat_AP)
+
+chisq.test(tab_poids_ideal_x_activite_physique)
 ```
 
 <!--% Interprétation statistique et biologique -->
