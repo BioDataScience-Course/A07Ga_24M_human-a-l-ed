@@ -162,13 +162,22 @@ chart(biometry, ~ masse) +
 
 ```{r indice1}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-
+biometry$lbm <- ifelse(biometry$genre == "H",
+  0.407*biometry$masse_corr+0.267*biometry$taille-19.2,
+  0.252*biometry$masse_corr+0.473*biometry$taille-48.3)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
 
 ```{r plot_indice1}
 # Graphique ou tableau utilisant l'indice calculé.
+a <- chart(biometry,~lbm %fill=% genre )+
+  geom_histogram(bin=30)
+
+b <- chart(biometry,~ masse %fill=% genre )+
+  geom_histogram(bin = 30)
+
+combine_charts(list(a,b))
 
 ```
 
