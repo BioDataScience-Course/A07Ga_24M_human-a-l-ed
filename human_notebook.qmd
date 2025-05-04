@@ -54,27 +54,37 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 
 ```{r student1}
 chart(biometry, tour_taille ~ masse_corr  )+
-  geom_point()
- biometry %>.%
-  smutate(., 
-         bmi = weight / (height / 100)^2, case_when(
-           bmi < 18.5 ~ "sous-poids",
-           bmi >= 18.5 & bmi < 25 ~ "poids normal",
-           bmi >= 25 & bmi < 30 ~ "surpoids",
-           bmi >= 30 ~ "obèse"),
-          bmi = ordered(
-      levels =
-      c("sous-poids", "poids normal", "surpoids", "obèse")) 
-    -> bio_bmi
+  geom_point()+
+   geom_smooth(method = "lm", se = FALSE) 
+ 
 
-   
-
-
-
-
+biometry %>.%
+   smutate(.,bmi = masse_corr/(taille/100)^2,bmi_cat = case_when(
+  bmi < 18.5 ~ "underweight",
+  bmi >= 18.5 & bmi < 25 ~ "normal weight",
+  bmi >= 25 & bmi < 30 ~ "overweight",
+  bmi >= 30 ~ "obese"),
+     bmi_cat = factor(bmi_cat,
+                 levels = c("underweight", "normal weight", "overweight", "obese"),
+                 ordered = TRUE) ) %>.%
+   sselect(.,tour_taille,masse_corr,bmi_cat)%>.%
+   sgroup_by(., bmi_cat) %>.%
+   ssummarise(.,
+    mean_ttaille = mean(tour_taille),
+     mean_masse = mean(masse_corr),
+     corr_masse_taille = mean(tour_taille)/mean(masse_corr)) -> bio_bmi
+ 
+ tabularise(bio_bmi)
 ```
 
 ...Vos deux descriptions ici...
+
+le graphique montre une augmentation linéaire du tour de taille par rapport au la masse de l'individu
+
+Le remaniement de données nous conforte dans cette idées en montrant une augmentation de la moyenne du poid et du tour de taille en corrélation avec l'augmentation de la classe du bmi.
+De plus en regardant le ratio des deux moyennes on voit que celui reste assez similaire entre les catégories de poids normal, surpoids et obésité nous réconfortant dans cette idée d'augmentation linéaire du tour de taille par rapport à l'augmentation du poids. Malgré une divergence plus importante par rapport à ce ratio chez les personnes soucharge pondérale qui est probablement à une limite naturelle dù à la taille de l'os 
+
+en conclusion, nos pouvons dire que la prise de poids et l'augmentation de la taille suivent une augmentation linéaire 
 
 ### Description par l'étudiant 2
 
