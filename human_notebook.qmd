@@ -53,11 +53,21 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 1
 
 ```{r student1}
-chart(biometry, tour_taille ~ masse_corr )+
+chart(biometry, tour_taille ~ masse_corr  )+
   geom_point()
-sselect(biometry, tour_taille , masse_corr) -> taillemasse
-taillemasse_odr <- arrange(taillemasse, tour_taille)
-tabularise(taillemasse_odr)
+ biometry %>.%
+  smutate(., 
+         bmi = weight / (height / 100)^2, case_when(
+           bmi < 18.5 ~ "sous-poids",
+           bmi >= 18.5 & bmi < 25 ~ "poids normal",
+           bmi >= 25 & bmi < 30 ~ "surpoids",
+           bmi >= 30 ~ "obèse"),
+          bmi = ordered(
+      levels =
+      c("sous-poids", "poids normal", "surpoids", "obèse")) 
+    -> bio_bmi
+
+   
 
 
 
