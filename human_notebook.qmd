@@ -81,10 +81,9 @@ biometry %>.%
 
 le graphique montre une augmentation linéaire du tour de taille par rapport au la masse de l'individu
 
-Le remaniement de données nous conforte dans cette idées en montrant une augmentation de la moyenne du poid et du tour de taille en corrélation avec l'augmentation de la classe du bmi.
-De plus en regardant le ratio des deux moyennes on voit que celui reste assez similaire entre les catégories de poids normal, surpoids et obésité nous réconfortant dans cette idée d'augmentation linéaire du tour de taille par rapport à l'augmentation du poids. Malgré une divergence plus importante par rapport à ce ratio chez les personnes soucharge pondérale qui est probablement à une limite naturelle dù à la taille de l'os 
+Le remaniement de données nous conforte dans cette idées en montrant une augmentation de la moyenne du poid et du tour de taille en corrélation avec l'augmentation de la classe du bmi. De plus en regardant le ratio des deux moyennes on voit que celui reste assez similaire entre les catégories de poids normal, surpoids et obésité nous réconfortant dans cette idée d'augmentation linéaire du tour de taille par rapport à l'augmentation du poids. Malgré une divergence plus importante par rapport à ce ratio chez les personnes soucharge pondérale qui est probablement à une limite naturelle dù à la taille de l'os
 
-en conclusion, nos pouvons dire que la prise de poids et l'augmentation de la taille suivent une augmentation linéaire 
+en conclusion, nos pouvons dire que la prise de poids et l'augmentation de la taille suivent une augmentation linéaire
 
 ### Description par l'étudiant 2
 
