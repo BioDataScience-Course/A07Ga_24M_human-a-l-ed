@@ -53,18 +53,37 @@ biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
 ### Description par l'étudiant 1
 
 ```{r student1}
-chart(biometry, tour_taille ~ masse_corr )+
-  geom_point()
-sselect(biometry, tour_taille , masse_corr) -> taillemasse
-taillemasse_odr <- arrange(taillemasse, tour_taille)
-tabularise(taillemasse_odr)
+chart(biometry, tour_taille ~ masse_corr  )+
+  geom_point()+
+   geom_smooth(method = "lm", se = FALSE) 
+ 
 
-
-
-
+biometry %>.%
+   smutate(.,bmi = masse_corr/(taille/100)^2,bmi_cat = case_when(
+  bmi < 18.5 ~ "underweight",
+  bmi >= 18.5 & bmi < 25 ~ "normal weight",
+  bmi >= 25 & bmi < 30 ~ "overweight",
+  bmi >= 30 ~ "obese"),
+     bmi_cat = factor(bmi_cat,
+                 levels = c("underweight", "normal weight", "overweight", "obese"),
+                 ordered = TRUE) ) %>.%
+   sselect(.,tour_taille,masse_corr,bmi_cat)%>.%
+   sgroup_by(., bmi_cat) %>.%
+   ssummarise(.,
+    mean_ttaille = mean(tour_taille),
+     mean_masse = mean(masse_corr),
+     corr_masse_taille = mean(tour_taille)/mean(masse_corr)) -> bio_bmi
+ 
+ tabularise(bio_bmi)
 ```
 
 ...Vos deux descriptions ici...
+
+le graphique montre une augmentation linéaire du tour de taille par rapport au la masse de l'individu
+
+Le remaniement de données nous conforte dans cette idées en montrant une augmentation de la moyenne du poid et du tour de taille en corrélation avec l'augmentation de la classe du bmi. De plus en regardant le ratio des deux moyennes on voit que celui reste assez similaire entre les catégories de poids normal, surpoids et obésité nous réconfortant dans cette idée d'augmentation linéaire du tour de taille par rapport à l'augmentation du poids. Malgré une divergence plus importante par rapport à ce ratio chez les personnes soucharge pondérale qui est probablement à une limite naturelle dù à la taille de l'os
+
+en conclusion, nos pouvons dire que la prise de poids et l'augmentation de la taille suivent une augmentation linéaire
 
 ### Description par l'étudiant 2
 
@@ -148,13 +167,22 @@ chart(biometry, ~ masse) +
 
 ```{r indice1}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-
+biometry$lbm <- ifelse(biometry$genre == "H",
+  0.407*biometry$masse_corr+0.267*biometry$taille-19.2,
+  0.252*biometry$masse_corr+0.473*biometry$taille-48.3)
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
 
 ```{r plot_indice1}
 # Graphique ou tableau utilisant l'indice calculé.
+a <- chart(biometry,~lbm %fill=% genre )+
+  geom_histogram(bin=30)
+
+b <- chart(biometry,~ masse %fill=% genre )+
+  geom_histogram(bin = 30)
+
+combine_charts(list(a,b))
 
 ```
 
@@ -293,23 +321,49 @@ biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse d
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_chi2_1}
-#Tableau de la 2e métrique (poids idéal calculé, formule de Lorentz avec correction)
-sselect(biometry, poids_ideal, age, genre, masse_corr) %>.%
-  smutate(., masse_corr_levels = case_when(
-    masse_corr < 50 ~ "Très mince",
-    masse_corr >= 50  & masse_corr < 60 ~ "Mince",
-    masse_corr >= 60 & masse_corr < 75 ~ "Normal",
-    masse_corr >= 75 & masse_corr < 90 ~ "Surpoids",
-    masse_corr > 90 ~ "Surpoids")) %>.%
-tabularise(.)
+biometry$tranche_age <- cut(
+  biometry$age,
+  breaks = c(0, 18, 24, 34, 44, 54, 64, 74, 100),
+  labels = c("0-18", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-100"),
+  right = FALSE,
+  include.lowest = TRUE)
+
+biometry_Pi_AP <- biometry %>%
+  group_by(tranche_age) %>%
+  summarise(poids_ideal_moyen = mean(poids_ideal, na.rm = TRUE),
+    activite_physique_moyenne = mean(activite_physique, na.rm = TRUE),
+       "Nombre de personnes" = n()) %>%
+  arrange(tranche_age)
+  
+tabularise(biometry_Pi_AP)
 ```
 
 <!--% Hypothèse nulle et alternative -->
 
+-   Ho : indépendance du poids idéal et de l'activité physique
+
+-   H1 : dépendance du poids idéal et de l'activité physique
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_chi2_1}
+biometry$cat_poids <- cut(
+  biometry$poids_ideal,
+  breaks = quantile(biometry$poids_ideal, probs = seq(0, 1, 0.25), na.rm = TRUE),
+  include.lowest = TRUE,
+  labels = c("Bas", "Moyen-", "Moyen+", "Haut")
+)
 
+biometry$cat_AP <- cut(
+  biometry$activite_physique,
+  breaks = quantile(biometry$activite_physique, probs = seq(0, 1, 0.25), na.rm = TRUE),
+  include.lowest = TRUE,
+  labels = c("Faible", "Modérée-", "Modérée+", "Élevée")
+)
+
+tab_poids_ideal_x_activite_physique <- table(biometry$cat_poids, biometry$cat_AP)
+
+chisq.test(tab_poids_ideal_x_activite_physique)
 ```
 
 <!--% Interprétation statistique et biologique -->
@@ -418,52 +472,59 @@ t.test(data = biometry, imc ~ genre,
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_1}
-
+chart(data = biometry, fast_food ~ sucre) +
+  geom_violin() +
+  geom_jitter(width = 0.05, alpha = 0.5) +
+  stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
 ```
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
+
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
+
 <!--% Vérification des conditions d'application -->
 
--   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
--   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$ <!--% Vérification des conditions d'application -->
-
 ```{r test_anova1_1}
+	
+bartlett.test(data = biometry, fast_food ~ sucre)
 
+biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
+anova(biometry_anova_sucre_ff) %>.%
+  tabularise(.)
 ```
 
 <!--% Interprétation statistique et biologique -->
 
 ### ANOVA à un facteur 2
 
-<!--% Hypothèse nulle et alternative -->
-
--   $$H_0 : var(jamais) = var(rarement) = var(régulièrement) = var(souvent) $$
--   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j$$
-
-```{r anova2_1}
-biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
-anova(biometry_anova_sucre_ff) %>.%
-  tabularise(.)
-
-
-```
-
-<!--% Interprétation statistique et biologique -->
-
-```         
-\### ANOVA à un facteur 2
-```
-
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_2}
-
+chart(data = biometry, masse_corr ~ alimentation) +
+  geom_violin() +
+  geom_jitter(width = 0.05, alpha = 0.5) +
+  stat_summary(geom = "point", fun = "mean", color = "red", size = 3)
 ```
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : µ(omnivore) = µ(végétarien) = µ(carnivore) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
+
+```{r anova2_1}
+anova(biometry_anova_massali <-lm(data = biometry, masse_corr ~ alimentation)) |>tabularise()
+
+
+```
+
 <!--% Vérification des conditions d'application -->
+
+<!--% Hypothèse nulle et alternative -->
+
+-   $$H_0 : var(omnivore) = var(végétarien) = var(carnivore) (homoscédasticité) $$
+-   $$H_1 : \exists(i, j)\ tel\ que\ var_i≠var_j (hétéroscédasticité)$$
 
 ```{r bartlett_test_anova1_2}
 bartlett.test(data=biometry, masse_corr ~ alimentation)
@@ -471,7 +532,9 @@ bartlett.test(data=biometry, masse_corr ~ alimentation)
 
 <!--% Interprétation statistique et biologique -->
 
-Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant. <!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
+Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
+
+<!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
 
 ### ANOVA à deux facteurs 1
 
