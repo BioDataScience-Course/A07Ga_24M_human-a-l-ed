@@ -596,6 +596,13 @@ tabularise(graisse_tab)
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ BMI \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
+```{=html}
+<!-- -->
+```
+-   $$H_0 : Il \ y \ a \ un \ effet \ significatif \ du \ BMI \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_1}
