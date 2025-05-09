@@ -553,10 +553,19 @@ Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeu
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova2_2}
-
+#graphique d'intéraction 
+sgroup_by(biometry, intolerance_lactose, intolerance_gluten)%>.%
+  ssummarise(., masse_corr_groups = mean(masse_corr)) %>.%
+  chart(data = ., masse_corr_groups ~ intolerance_lactose %col=% intolerance_gluten %group=% intolerance_gluten ) +
+  geom_line() +
+  geom_point()
 ```
 
 <!--% Hypothèse nulle et alternative -->
+
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
+
+-   $$H_0 : Il \ y \ a \ un \ effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
 
 <!--% Vérification des conditions d'application -->
 
