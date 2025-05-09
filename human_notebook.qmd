@@ -503,7 +503,7 @@ nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_1}
-chart(data = biometry, fast_food ~ sucre) +
+chart(data = biometry, fast_food ~ age_rec) +
   geom_violin() +
   geom_jitter(width = 0.05, alpha = 0.5) +
   stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
@@ -521,8 +521,8 @@ chart(data = biometry, fast_food ~ sucre) +
 	
 bartlett.test(data = biometry, fast_food ~ age_rec)
 
-biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
-anova(biometry_anova_sucre_ff) %>.%
+biometry_anova_age_rec <- lm(data = biometry, fast_food ~ age_rec)
+anova(biometry_anova_age_rec) %>.%
   tabularise(.)
 ```
 
@@ -595,6 +595,13 @@ tabularise(graisse_mass)
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ BMI \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
+```{=html}
+<!-- -->
+```
+-   $$H_0 : Il \ y \ a \ un \ effet \ significatif \ du \ BMI \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_1}
@@ -635,6 +642,10 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 
 Dans notre cas, nous pouvons dire avec un seuil\
 α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α) \# Discussion et conclusions.
+
+On ne peut donc pas conclure qu'il y aie de différence significative entre la masse corrigée au seuil α de 5% à la fois en fonction de l'intolérence au lactose (*F* = 0,0482, ddl = 1 et 140, valeur *p* = 0,8265) et de l\'intolérance au gluten (*F* = 2,6189, ddl = 1 et 140, valeur *p* = 0,1078).
+
+Le graphique semble montrer qu'il y aie interaction entre les valeurs, le test anova deux facteurs montre le contraire (ligne "intolerance_lactose:intolerance_gluten").
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
