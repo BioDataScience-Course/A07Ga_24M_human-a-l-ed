@@ -368,6 +368,7 @@ chisq.test(tab_poids_ideal_x_activite_physique)
 
 <!--% Interprétation statistique et biologique -->
 
+
 ### Test de Chi^2^ 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
@@ -411,6 +412,7 @@ chisq.test(table_F)
 ```
 
 <!--% Interprétation statistique et biologique -->
+Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x^2 = 12.147, df = 3, p = 0.006897) et les hommes (x^2=15.7, df = 3, p = 0.001307), cela signifie que le rth est dépendant  des catégories de l'imc
 
 <!--# Travaillez jusqu'ici pour le module 7. -->
 
