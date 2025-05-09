@@ -503,7 +503,7 @@ nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_1}
-chart(data = biometry, fast_food ~ sucre) +
+chart(data = biometry, fast_food ~ age_rec) +
   geom_violin() +
   geom_jitter(width = 0.05, alpha = 0.5) +
   stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
@@ -521,8 +521,8 @@ chart(data = biometry, fast_food ~ sucre) +
 	
 bartlett.test(data = biometry, fast_food ~ age_rec)
 
-biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
-anova(biometry_anova_sucre_ff) %>.%
+biometry_anova_age_rec <- lm(data = biometry, fast_food ~ age_rec)
+anova(biometry_anova_age_rec) %>.%
   tabularise(.)
 ```
 
