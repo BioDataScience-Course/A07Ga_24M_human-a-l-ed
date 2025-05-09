@@ -177,10 +177,14 @@ biometry$lbm <- ifelse(biometry$genre == "H",
 ```{r plot_indice1}
 # Graphique ou tableau utilisant l'indice calculé.
 a <- chart(biometry,~lbm %fill=% genre )+
-  geom_histogram(bin=30)
+  geom_histogram(bin=30)+
+  ylim(0,15)+
+  xlim(30,120)
 
 b <- chart(biometry,~ masse %fill=% genre )+
-  geom_histogram(bin = 30)
+  geom_histogram(bin = 30)+
+  ylim(0,15)+
+  xlim(30,120)
 
 combine_charts(list(a,b))
 
