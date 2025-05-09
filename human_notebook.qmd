@@ -634,6 +634,10 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 Dans notre cas, nous pouvons dire avec un seuil\
 α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α) \# Discussion et conclusions.
 
+On ne peut donc pas conclure qu'il y aie de différence significative entre la masse corrigée au seuil α de 5% à la fois en fonction d'un cas d'intolérence au lactose (*F* = 17,2, ddl = 1 et 197, valeur *p* \<\< 0,001), d'un cas d\'intolérance au gluten (*F* = 436, ddl = 1 et 197, valeur *p* \<\< 0,001) et d'un cas d'intolérance au lactose et au gluten (
+
+Donc le graphique semble montrer qu'il y a interaction entre
+
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
 -   ...
