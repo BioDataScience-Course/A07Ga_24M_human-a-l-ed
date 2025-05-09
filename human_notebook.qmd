@@ -368,7 +368,6 @@ chisq.test(tab_poids_ideal_x_activite_physique)
 
 <!--% Interprétation statistique et biologique -->
 
-
 ### Test de Chi^2^ 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
@@ -412,7 +411,8 @@ chisq.test(table_F)
 ```
 
 <!--% Interprétation statistique et biologique -->
-Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x^2 = 12.147, df = 3, p = 0.006897) et les hommes (x^2=15.7, df = 3, p = 0.001307), cela signifie que le rth est dépendant  des catégories de l'imc
+
+Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307), cela signifie que le rth est dépendant des catégories de l'imc
 
 <!--# Travaillez jusqu'ici pour le module 7. -->
 
@@ -435,10 +435,10 @@ imc/cortisone_tab
 ```
 
 <!-- Hypothèse nulle et alternative -->
+
 -   $$H_0 : mean(imc_N) - mean(imc_O) = 0 $$
 
--   $$H_1 : mean(imc_N) - mean(imc_O) ≠ 0 $$
-<!-- Vérification des conditions d'application -->
+-   $$H_1 : mean(imc_N) - mean(imc_O) ≠ 0 $$ <!-- Vérification des conditions d'application -->
 
 ```{r test_t_1}
 t.test(data = biometry, imc ~ cortisone,
@@ -479,8 +479,8 @@ t.test(data = biometry, imc ~ genre,
 ```
 
 <!--% Interprétation statistique et biologique -->
-nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'imc diffère de manière significative en fonction du sexe au seuil α de 5% (test t bilatéral, t = 0.33263, ddl = 140.04, valeur p = 0.7377)
-<!--# Travaillez jusqu'ici pour le module 8. Commencez à travailler sur le rapport (intro, mat&met). -->
+
+nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'imc diffère de manière significative en fonction du sexe au seuil α de 5% (test t bilatéral, t = 0.33263, ddl = 140.04, valeur p = 0.7377) <!--# Travaillez jusqu'ici pour le module 8. Commencez à travailler sur le rapport (intro, mat&met). -->
 
 ### ANOVA à un facteur 1
 
@@ -591,7 +591,7 @@ sgroup_by(biometry, intolerance_lactose, intolerance_gluten)%>.%
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_2}
-anova(anova_gluten_lactose <-lm(data=biometry,masse_corr ~ intolerance_lactose*intolerance_gluten))
+anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*intolerance_gluten))
 ```
 
 <!--% Interprétation statistique et biologique -->
