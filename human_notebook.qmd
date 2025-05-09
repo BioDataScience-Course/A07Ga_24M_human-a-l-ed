@@ -511,7 +511,7 @@ chart(data = biometry, fast_food ~ age_rec) +
 
 <!--% Hypothèse nulle et alternative -->
 
--   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
+-   $$H_0 : µ([18, 40]) = µ([40, 60]) = µ([60, 80]) = µ(NA) $$
 
 -   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
 
