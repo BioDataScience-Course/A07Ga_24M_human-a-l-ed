@@ -547,7 +547,7 @@ bartlett.test(data=biometry, masse_corr ~ alimentation)
 
 <!--% Interprétation statistique et biologique -->
 
-Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
+Si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
 
 <!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
 
