@@ -521,8 +521,8 @@ chart(data = biometry, fast_food ~ sucre) +
 	
 bartlett.test(data = biometry, fast_food ~ age_rec)
 
-biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
-anova(biometry_anova_sucre_ff) %>.%
+biometry_anova_age_rec <- lm(data = biometry, fast_food ~ age_rec)
+anova(biometry_anova_age_rec) %>.%
   tabularise(.)
 ```
 
