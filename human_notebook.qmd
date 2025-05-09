@@ -368,6 +368,12 @@ chisq.test(tab_poids_ideal_x_activite_physique)
 
 <!--% Interprétation statistique et biologique -->
 
+-   Nous tentons ici de voir si un lien existe entre activité physique et poids "idéal". Pour cela, nous avons effectué différentes catégories dans chacune des variables afin d'avoir des variables facteurs à analyser.
+
+-   Avec notre test Chi carré d'indépendance, nous observons une valeur p inférieure au seuil alpha de 5% (0.01833). Nous pouvons donc dire que nous rejetons H0.
+
+-   Par conséquent, il y a bien une dépendance entre l'activité physique et le poids "idéale" des individus. (x-squared = )
+
 ### Test de Chi^2^ 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
