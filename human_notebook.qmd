@@ -372,7 +372,7 @@ chisq.test(tab_poids_ideal_x_activite_physique)
 
 -   Avec notre test Chi carré d'indépendance, nous observons une valeur p inférieure au seuil alpha de 5% (0.01833). Nous pouvons donc dire que nous rejetons H0.
 
--   Par conséquent, il y a bien une dépendance entre l'activité physique et le poids "idéale" des individus. (x-squared = )
+-   Par conséquent, il y a bien une dépendance entre l'activité physique et le poids "idéale" des individus. (x-squared = 19.933 , df = 9, p-value = 0.01833)
 
 ### Test de Chi^2^ 2
 
