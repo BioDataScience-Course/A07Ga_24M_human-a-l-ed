@@ -519,7 +519,7 @@ chart(data = biometry, fast_food ~ sucre) +
 
 ```{r test_anova1_1}
 	
-bartlett.test(data = biometry, fast_food ~ sucre)
+bartlett.test(data = biometry, fast_food ~ age_rec)
 
 biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
 anova(biometry_anova_sucre_ff) %>.%
@@ -563,7 +563,7 @@ bartlett.test(data=biometry, masse_corr ~ alimentation)
 
 <!--% Interprétation statistique et biologique -->
 
-Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
+Si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
 
 <!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
 
@@ -612,7 +612,8 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 
 <!--% Interprétation statistique et biologique -->
 
-# Discussion et conclusions
+Dans notre cas, nous pouvons dire avec un seuil\
+α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α) \# Discussion et conclusions.
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
