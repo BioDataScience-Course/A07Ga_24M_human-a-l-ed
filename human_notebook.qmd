@@ -149,7 +149,7 @@ chart(biometry, ~ masse) +
 
 -   Le graphique nous montre deux pics d'effectifs entre 60 et 80 kg et 80 et 100 kg. Peu de personnes se trouvent aux extrêmes (40-45 kg et 95-130 kg ou plus).
 
--   On remarque sur le tableau que la majorité des 18-40 ans on une masse oscillant entre 60 et 90 kg. une quinzaine se retrouve aussi entre 50 et 60 kg. Les 40-60 ans sont principalement répartis entre les 60 et 100 kg mais nous en rertouvons aussi entre 100 et 120 kg. Nous remarquons que peu de nos observations concernent les 60-80 ans. Malgré tout, les peu de cas étudiés dans cette tranche se retrouvent dans les 60-70 kg mais aussi de 80 à 120 kg.
+-   On remarque sur le tableau que la majorité des 18-40 ans on une masse oscillant entre 60 et 90 kg. une quinzaine se retrouve aussi entre 50 et 60 kg. Les 40-60 ans sont principalement répartis entre les 60 et 100 kg mais nous en retrouvons aussi entre 100 et 120 kg. Nous remarquons que peu de nos observations concernent les 60-80 ans. Malgré tout, les peu de cas étudiés dans cette tranche se retrouvent dans les 60-70 kg mais aussi de 80 à 120 kg.
 
 -   Le tableau nous confirme que peu de nos observations se trouvent dans les extrêmes (40-50 et 120-130 kg)
 
@@ -507,7 +507,7 @@ nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova1_1}
-chart(data = biometry, fast_food ~ sucre) +
+chart(data = biometry, fast_food ~ age_rec) +
   geom_violin() +
   geom_jitter(width = 0.05, alpha = 0.5) +
   stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
@@ -515,7 +515,7 @@ chart(data = biometry, fast_food ~ sucre) +
 
 <!--% Hypothèse nulle et alternative -->
 
--   $$H_0 : µ(jamais) = µ(rarement) = µ(régulièrement) = µ(souvent) $$
+-   $$H_0 : µ([18, 40]) = µ([40, 60]) = µ([60, 80]) = µ(NA) $$
 
 -   $$H_1 : \exists(i, j)\ tel\ que\ µ_i≠µ_j$$
 
@@ -525,8 +525,8 @@ chart(data = biometry, fast_food ~ sucre) +
 	
 bartlett.test(data = biometry, fast_food ~ age_rec)
 
-biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
-anova(biometry_anova_sucre_ff) %>.%
+biometry_anova_age_rec <- lm(data = biometry, fast_food ~ age_rec)
+anova(biometry_anova_age_rec) %>.%
   tabularise(.)
 ```
 
@@ -610,7 +610,13 @@ anova(masse_grasse_anova) %>.%
 
 <!--% Interprétation statistique et biologique -->
 
-### ANOVA à deux facteurs 2
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
+-   $$H_1 : Il \ y \ a \ pas \ un \ effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
+|     |
+|-----|
+|     |
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
@@ -627,7 +633,7 @@ sgroup_by(biometry, intolerance_lactose, intolerance_gluten)%>.%
 
 -   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
 
--   $$H_0 : Il \ y \ a \ un \ effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
+-   $$H_1 : Il \ y \ a \ un \ effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
 
 <!--% Vérification des conditions d'application -->
 
