@@ -112,7 +112,7 @@ tabularise(biogenre)
 
 ...Vos deux descriptions ici...
 
--   Les personnes en poids élevé extremes mangent tous souvent du sucre.
+-   Les personnes en poids élevé extreme mangent tous souvent du sucre.
 
 -   Les différentes alimentation en sucre ne montre pas de différence de poids en moyenne.
 
