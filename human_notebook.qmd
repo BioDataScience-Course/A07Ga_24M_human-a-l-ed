@@ -556,7 +556,26 @@ Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeu
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova2_1}
-
+biometry%>.%
+  smutate(., masse_grasse = masse_corr - lbm , 
+    bmi = masse_corr/(taille/100)^2,bmi_cat = case_when(
+  bmi < 18.5 ~ "underweight",
+  bmi >= 18.5 & bmi < 25 ~ "normal weight",
+  bmi >= 25 & bmi < 30 ~ "overweight",
+  bmi >= 30 ~ "obese"),
+     bmi_cat = factor(bmi_cat,
+                 levels = c("underweight", "normal weight", "overweight", "obese"),
+                 ordered = TRUE) ) %>.%
+  sselect(., masse_grasse, lbm , masse_corr, genre,bmi_cat) %>.%
+  sgroup_by(.,bmi_cat, genre )%>.%
+  ssummarise(., 
+    mean = fmean(masse_grasse),
+    var = fvar(masse_grasse),
+    n = fn(masse_grasse)
+    ) ->
+  
+  graisse_tab
+tabularise(graisse_tab)
 ```
 
 <!--% Hypothèse nulle et alternative -->
