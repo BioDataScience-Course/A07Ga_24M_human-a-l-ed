@@ -20,7 +20,7 @@ if (!"tools:tests" %in% search())
   source(here::here("tests/tools_tests.R"), attach(NULL, name = "tools:tests"))
 
 # Configuration de l'environnement SciViews::R
-SciViews::R("infer", lang = "fr")
+SciViews::R("infer","model", lang = "fr")
 ```
 
 # Introduction et but
@@ -572,7 +572,25 @@ Si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, o
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_anova2_1}
-
+biometry %>.%
+  smutate(., masse_grasse = masse_corr - lbm , 
+    bmi = masse_corr/(taille/100)^2,bmi_cat = case_when(
+  bmi < 18.5 ~ "underweight",
+  bmi >= 18.5 & bmi < 25 ~ "normal weight",
+  bmi >= 25 & bmi < 30 ~ "overweight",
+  bmi >= 30 ~ "obese"),
+     bmi_cat = factor(bmi_cat,
+                 levels = c("underweight", "normal weight", "overweight", "obese"),
+                 ordered = TRUE) ) %>.%
+  sselect(., masse_grasse, lbm , masse_corr, genre,bmi_cat) ->graisse
+  sgroup_by(graisse,bmi_cat, genre )%>.%
+  ssummarise(., 
+    mean_graisse = fmean(masse_grasse),
+    var = fvar(masse_grasse),
+    n = fn(masse_grasse)
+    )-> graisse_mass
+tabularise(graisse_mass)
+    
 ```
 
 <!--% Hypothèse nulle et alternative -->
@@ -580,6 +598,9 @@ Si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, o
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_1}
+masse_grasse_anova <- lm(data =graisse , masse_grasse ~ bmi_cat * genre)
+anova(masse_grasse_anova) %>.%
+  tabularise(.)
 
 ```
 
