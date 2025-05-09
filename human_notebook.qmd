@@ -567,7 +567,7 @@ Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeu
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_2}
-
+anova(anova_gluten_lactose <-lm(data=biometry,masse_corr ~ intolerance_lactose*intolerance_gluten))
 ```
 
 <!--% Interprétation statistique et biologique -->
