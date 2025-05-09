@@ -606,7 +606,13 @@ anova(masse_grasse_anova) %>.%
 
 <!--% Interprétation statistique et biologique -->
 
-### ANOVA à deux facteurs 2
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
+-   $$H_1 : Il \ y \ a \ pas \ un \ effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
+|     |
+|-----|
+|     |
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
@@ -623,7 +629,7 @@ sgroup_by(biometry, intolerance_lactose, intolerance_gluten)%>.%
 
 -   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
 
--   $$H_0 : Il \ y \ a \ un \ effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
+-   $$H_1 : Il \ y \ a \ un \ effet \ significatif \ du \ type \ d'intolérance \ sur \ la \ masse $$
 
 <!--% Vérification des conditions d'application -->
 
