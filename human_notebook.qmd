@@ -112,7 +112,7 @@ tabularise(biogenre)
 
 ...Vos deux descriptions ici...
 
--   Les personnes en poids élevé extremes mangent tous souvent du sucre.
+-   Les personnes en poids élevé extreme mangent tous souvent du sucre.
 
 -   Les différentes alimentation en sucre ne montre pas de différence de poids en moyenne.
 
@@ -368,6 +368,12 @@ chisq.test(tab_poids_ideal_x_activite_physique)
 
 <!--% Interprétation statistique et biologique -->
 
+-   Nous tentons ici de voir si un lien existe entre activité physique et poids "idéal". Pour cela, nous avons effectué différentes catégories dans chacune des variables afin d'avoir des variables facteurs à analyser.
+
+-   Avec notre test Chi carré d'indépendance, nous observons une valeur p inférieure au seuil alpha de 5% (0.01833). Nous pouvons donc dire que nous rejetons H0.
+
+-   Par conséquent, il y a bien une dépendance entre l'activité physique et le poids "idéale" des individus. (x-squared = 19.933 , df = 9, p-value = 0.01833)
+
 ### Test de Chi^2^ 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
@@ -447,12 +453,20 @@ t.test(data = biometry, imc ~ cortisone,
 
 <!-- Interprétation statistique et biologique -->
 
+-   Nous tentons ici de savoir si il y a une différence significative d'IMC entre les personnes prenant de la cortisone et les personnes n'en prenant pas.
+
+-   Pour cela, nous réalisons un test de Welch bilatéral.
+
+-   Nous voyons dans nos résultats que la valeur de p est supérieure au seuil alpha de 5%. Nous ne rejetons donc pas H0. Par conséquent, nous pouvons supposer qu'il n'y a pas de différence significative d'IMC entre les personnes prenant de la cortisone et les personnes n'en prenant pas. (t = -1.0572, df =4.2737, p-value = 0.3465)
+
+-   Cependant, peu d'observations ont été effectuées sur des personnes consommant de la cortisone. Par conséquent il est possible que notre test soit faussé.
+
 ### Test t de Student 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_t_2}
-chart(biometry, imc ~ gender) +
+chart(biometry, imc ~ genre) +
   geom_boxplot()
 
 biometry %>.%
@@ -480,7 +494,9 @@ t.test(data = biometry, imc ~ genre,
 
 <!--% Interprétation statistique et biologique -->
 
-nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'imc diffère de manière significative en fonction du sexe au seuil α de 5% (test t bilatéral, t = 0.33263, ddl = 140.04, valeur p = 0.7377) <!--# Travaillez jusqu'ici pour le module 8. Commencez à travailler sur le rapport (intro, mat&met). -->
+nous ne rejetons pas H_0, nous pourrons dire nous ne pouvons pas conclure que l'imc diffère de manière significative en fonction du sexe au seuil α de 5% (test t bilatéral, t = 0.33263, ddl = 140.04, valeur p = 0.7377)
+
+<!--# Travaillez jusqu'ici pour le module 8. Commencez à travailler sur le rapport (intro, mat&met). -->
 
 ### ANOVA à un facteur 1
 
@@ -503,7 +519,7 @@ chart(data = biometry, fast_food ~ sucre) +
 
 ```{r test_anova1_1}
 	
-bartlett.test(data = biometry, fast_food ~ sucre)
+bartlett.test(data = biometry, fast_food ~ age_rec)
 
 biometry_anova_sucre_ff <- lm(data = biometry, fast_food ~ sucre)
 anova(biometry_anova_sucre_ff) %>.%
@@ -547,7 +563,7 @@ bartlett.test(data=biometry, masse_corr ~ alimentation)
 
 <!--% Interprétation statistique et biologique -->
 
-Dans un premier temps Dans un second temps si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
+Si on regarde le test ANOVA, la valeur de P est inférieure à celle de alpha, on rejette donc H_0 au seuil de alpha 5% : les moyennes des 3 groupes ne diffèrent pas de façon significative (ANOVA, ddl = 2, P = 0.371). Dans un second temps si l'on regarde le test de Bartlett, on voit qu'il n'y a pas homoscédasticité (au moins une varience diffère des autres) ce qui signifie que le test ANOVA ne sera pas concluant.
 
 <!--# Travaillez jusqu'ici pour le module 9. Commencez à rédiger la partie résultats avec la description des données. -->
 
@@ -615,7 +631,8 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 
 <!--% Interprétation statistique et biologique -->
 
-# Discussion et conclusions
+Dans notre cas, nous pouvons dire avec un seuil\
+α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α) \# Discussion et conclusions.
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
