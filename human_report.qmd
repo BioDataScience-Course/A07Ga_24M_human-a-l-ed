@@ -142,21 +142,40 @@ chart(biometry, ~imc %fill=% genre)+
 
 #### RTH : 
 
-```{r indice3}
+```{r indice4}
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
-biometry$imc <- biometry$masse_corr / ((biometry$taille/100) ^ 2)
+biometry$rth <- biometry$tour_taille/biometry$tour_hanche 
 ```
 
-```{r plot_indice3}
+```{r plot_indice4}
 # Graphique ou tableau utilisant l'indice calculé.
-chart(biometry, ~imc %fill=% genre)+
-  geom_histogram()+
-  geom_vline(xintercept = c(18.5, 25, 30), linetype = "dashed", color = "red")  +
-  annotate("text", x = 18.5, y = Inf, label = "Sous-poids",hjust = 1.1,vjust = 1.5)+
-  annotate("text", x = 25, y = Inf, label = "Poids normal",hjust = 1.2,vjust = 1.5) +
-  annotate("text", x = 30, y = Inf, label = "Surpoids",hjust = 1.2,vjust = 1.5) +
-  annotate("text", x = 30, y = Inf, label = "obesité",hjust = -0.2,vjust = 1.5)+
-  labs(title = "Distribution de l'IMC", x = "IMC", y = "Effectifs")
+
+biometry_H <- sfilter(biometry, genre == "H")
+
+chart(biometry_H, ~rth) +
+  geom_histogram(bins = 25, color = "red") +
+ylab("Effectifs") +
+geom_vline(xintercept = 0.95, color = "yellow", size = 1.5)+
+  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les hommes") +
+  annotate("text", x = 0.95, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
+  annotate("text", x = 0.95, y = Inf, label = "Hausse du risque",hjust = -0.4,vjust = 1.5)
+
+biometry_H <- smutate(biometry_H, rth_levels = case_when(rth >= 0.95 ~ "Hausse du risque", 
+  rth < 0.95 ~ "normal"))
+
+
+biometry_F <- sfilter(biometry, genre == "F")
+
+chart(biometry_F, ~rth) +
+  geom_histogram(bins = 25, color = "red") +
+  ylab("Effectifs") +
+geom_vline(xintercept = 0.85, color = "yellow", size = 1.5)+
+  labs(title = "Effectifs des ratios tour de taille tour de hanche chez les femmes") +
+  annotate("text", x = 0.85, y = Inf, label = "normal",hjust = 3.5,vjust = 1.5) +
+  annotate("text", x = 0.85, y = Inf, label = "Hausse du risque",hjust = -0.5,vjust = 1.5)
+
+biometry_F <- smutate(biometry_F, rth_levels = case_when(rth >= 0.85 ~ "Hausse du risque", 
+  rth < 0.85 ~ "normal"))
 ```
 
 #### Poids idéal : 
@@ -179,6 +198,20 @@ ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
 ```
 
 ### Interprétations de nos analyses : 
+
+Nous observons que différents facteurs influencent la masse de nos individus et par conséquent, le fait qu'ils soient obèses ou non.
+
+Premièrement, nous ne constatons pas de lien direct entre l'âge de l'individu et sa masse dans notre analyse. Cependant, le nombre d'observations dans chaque classe d'âge n'est pas égals (peu d'observations entre 60 et 80 ans). Cela pourrait influencer nos résultats et potentiellement les fausser.
+
+Deuxièmement, nous avons analysé l'effet potentiel de la prise de sucre sur la masse de nos individus. Notre analyse nous montrent que il n'y a pas de lien direct entre la prise de sucre et la masse en moyenne. Cependant, nous observons malgré tout des exceptions, en effet, la plupart des individus au dessus de 100 kg consomment souvent du sucre.
+
+Ensuite, nous avons décidé d'analysé l'IMC en fonction du sexe de l'individu. Nos observations nous montrent que cet indice n'est pas significativement différent entre les hommes et les femmes. L'IMC pourrait donc être une bonne façon d'analyser de manière générale (sans prendre en compte le sexe), la masse et les facteurs l'affectant.
+
+Par la suite, nous avons créé un deuxième indice, le rapport entre tour de taille et tour de hanche (rth). Par convention, les conditions entre hommes et femmes du rth décrivant l'état des individus sont différentes. Nous pouvons constater, via nos graphiques, que les femmes ont une plus grande tendance a être à haut risque d'obésité que les hommes.
+
+Pour finir, nous nous sommes penchés sur l'indice concernant le poids idéal. On remarque que le poids idéal des hommes est généralement supérieur à celui des femmes. Cette observation pourra expliquer une éventuelle supériorité de la masse des hommes par rapport aux femmes et donc une corrélation entre la masse et le sexe dans nos tests.
+
+NB : Attention que le nombre d'observations dans les différentes catégories est différent et que cela pourra influencer nos résultats et peut être les fausser.
 
 ## Tests d'hypothèses
 
