@@ -65,7 +65,82 @@ La description des données et les tests statistiques sont réalisés dans la Sc
 
 <!--# N'oubliez pas que ce document doit pouvoir compiler indépendamment du reste. Cela implique que vous ajoutiez un chunk d'importation des données et que vous recalculiez tout ce qui doit l'être... Par contre, un simple copier-coller de toute la partie résultats du bloc-notes ne sera pas considéré comme un travail réalisé : vous devez sélectionner, et éventuellement remanier un peu le code, pour ne conserver que ce qui est utile ici. -->
 
-...Vos descriptions des données ici...
+# Importation des données : 
+
+```{r importation}
+biometry <- readRDS("~/workspace/A07Ga_24M_human-a-l-ed/data/biometry.rds")
+
+```
+
+### Analyse graphique : 
+
+Afin de comprendre les éléments étudiés qui pourraient influencer l'obésité, nous avons réalisé plusieurs études graphiques et/ou tableaux permettant de mettre en lien une cause et éventuellement une conséquence sur l'obésité (direct ou indirect).
+
+Voici quelques uns des graphiques/ tableaux nous semblant les plus pertinents pour notre étude :
+
+#### Etude de la masse et de la façon dont elle est influencée par l'âge des individus : 
+
+```{r student4}
+## Recodage de biometry$age en biometry$age_rec
+biometry$age_rec <- cut(biometry$age,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 4,
+  breaks = c(18, 40, 60, 80)
+)
+  
+  ## Recodage de biometry$masse en biometry$masse_rec
+biometry$masse_rec <- cut(biometry$masse,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 4,
+  breaks = c(40, 50, 60, 70, 80, 90, 100, 120, 130)
+)
+
+chart(biometry, ~ masse) +
+    geom_histogram(bins = 20)+
+  ylab("Effectifs")
+
+   biometry_tab <- table(masse = biometry$masse_rec ,age =  biometry$age_rec)
+   tabularise(biometry_tab)
+```
+
+#### Etude de l'influence de la prise de sucre sur la masse : 
+
+```{r student3}
+chart(biometry, ~ masse %fill=% sucre )+
+  geom_histogram(bins=20)
+biogenre <- ssummarise(sgroup_by(biometry, sucre,genre),
+  "n"       = fn(masse),
+  "poids moyen"=fmean(masse)
+  )
+tabularise(biogenre)
+```
+
+### Calcul et analyse de différents indices : 
+
+En supplément des graphiques/tableaux réalisés, nous avons également calculé différents indices nous permettant potentiellement de faire des liens entre différentes habitudes/modes de vie et l'obésité.
+
+#### L'IMC : 
+
+```{r indice3}
+# Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
+biometry$imc <- biometry$masse_corr / ((biometry$taille/100) ^ 2)
+```
+
+```{r plot_indice3}
+# Graphique ou tableau utilisant l'indice calculé.
+chart(biometry, ~imc %fill=% genre)+
+  geom_histogram()+
+  geom_vline(xintercept = c(18.5, 25, 30), linetype = "dashed", color = "red")  +
+  annotate("text", x = 18.5, y = Inf, label = "Sous-poids",hjust = 1.1,vjust = 1.5)+
+  annotate("text", x = 25, y = Inf, label = "Poids normal",hjust = 1.2,vjust = 1.5) +
+  annotate("text", x = 30, y = Inf, label = "Surpoids",hjust = 1.2,vjust = 1.5) +
+  annotate("text", x = 30, y = Inf, label = "obesité",hjust = -0.2,vjust = 1.5)+
+  labs(title = "Distribution de l'IMC", x = "IMC", y = "Effectifs")
+```
+
+#### 
 
 ## Tests d'hypothèses
 
