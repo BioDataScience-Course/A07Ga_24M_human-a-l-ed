@@ -591,7 +591,7 @@ sgroup_by(biometry, intolerance_lactose, intolerance_gluten)%>.%
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_2}
-
+anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*intolerance_gluten))
 ```
 
 <!--% Interprétation statistique et biologique -->
