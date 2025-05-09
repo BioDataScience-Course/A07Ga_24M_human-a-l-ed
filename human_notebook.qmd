@@ -149,7 +149,7 @@ chart(biometry, ~ masse) +
 
 -   Le graphique nous montre deux pics d'effectifs entre 60 et 80 kg et 80 et 100 kg. Peu de personnes se trouvent aux extrêmes (40-45 kg et 95-130 kg ou plus).
 
--   On remarque sur le tableau que la majorité des 18-40 ans on une masse oscillant entre 60 et 90 kg. une quinzaine se retrouve aussi entre 50 et 60 kg. Les 40-60 ans sont principalement répartis entre les 60 et 100 kg mais nous en rertouvons aussi entre 100 et 120 kg. Nous remarquons que peu de nos observations concernent les 60-80 ans. Malgré tout, les peu de cas étudiés dans cette tranche se retrouvent dans les 60-70 kg mais aussi de 80 à 120 kg.
+-   On remarque sur le tableau que la majorité des 18-40 ans on une masse oscillant entre 60 et 90 kg. une quinzaine se retrouve aussi entre 50 et 60 kg. Les 40-60 ans sont principalement répartis entre les 60 et 100 kg mais nous en retrouvons aussi entre 100 et 120 kg. Nous remarquons que peu de nos observations concernent les 60-80 ans. Malgré tout, les peu de cas étudiés dans cette tranche se retrouvent dans les 60-70 kg mais aussi de 80 à 120 kg.
 
 -   Le tableau nous confirme que peu de nos observations se trouvent dans les extrêmes (40-50 et 120-130 kg)
 
