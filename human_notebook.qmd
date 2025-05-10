@@ -532,6 +532,12 @@ anova(biometry_anova_age_rec) %>.%
 
 <!--% Interprétation statistique et biologique -->
 
+-   Au seuil alpha 5%, nous rejetons H_0 donc il y a une différence significative entre les différents groupe d'age.
+
+-   Le test de bartlett nous montre qu'il y a homoscédasticité donc le test ANOVA répond à cette condition d'application.
+
+-   Le graphique indique que la consommation de fast-food diminue avec l'âge : elle est la plus élevée chez les individus âgés de 18 à 40 ans, diminue chez ceux de 40 à 60 ans, et est la plus faible chez les personnes âgées de 60 à 80 ans.
+
 ### ANOVA à un facteur 2
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
