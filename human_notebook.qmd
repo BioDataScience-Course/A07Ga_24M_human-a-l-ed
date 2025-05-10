@@ -654,15 +654,15 @@ Dans notre cas, nous pouvons dire avec un seuil\
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
--   ...
+-   Nous ne remarquons aucun effet de la consommation de sucre sur le poids en moyenne mais nous remarquons que tous les individus obèse consomment souvent du sucre.
 
--   ...
+-   La majorité des individus se trouvent dans les catégories d'IMC poids normal et surpoids et au niveau des extrêmes il y a plus d'individus obèse que d'individus en sous-poids. Nous constatons aussi que l'IMC ne diffèrent pas entre homme et femme.
 
--   ...
+-   L'indice rth nous permet de déterminer la hausse de risque d'être en surpoids. l'indice rth est différent entre homme et femme. Les femmes ont un plus haut risque d'obésité que les hommes.
 
--   ...
+-   Notre étude comprend plus d'individus de 18-40 ans, moins d'individus de 40-60 ans et le nombre d'individus entre 60-80 ans est le plus faible. Il y aussi plus de femmes que d'hommes qui ont participé a cette étude.Nous constatons aussi qu'il n'y a pas vraiment de différence entre le poids myen des différentes catégories d'age.
 
--   ...
+-   Le poids idéal des hommes et plus élevés que les femmes, ceci s'explique par la différence de taille.
 
 <!--# Important : ce document doit compiler SANS ERREURS avec le bouton 'Rendu' sinon le travail sera sanctionné lourdement. La compilation du document Quarto est maintenant considérée comme acquise. -->
 
