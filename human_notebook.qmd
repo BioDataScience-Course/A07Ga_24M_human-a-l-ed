@@ -605,6 +605,8 @@ tabularise(graisse_mass)
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$ $$H_1 : Il \ y \ a \ un \ effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_1}
@@ -616,13 +618,15 @@ anova(masse_grasse_anova) %>.%
 
 <!--% Interprétation statistique et biologique -->
 
--   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+-   Il y a un effet significatif au seuil alpha de 5% du bmi sur la masse grasse (ddl = 3, Fobs = 237.64, p-value = 2\*10\^-16)
 
--   $$H_1 : Il \ y \ a \ pas \ un \ effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+-   Il y a un effet significatif au seuil alpha de 5% du genre sur la masse grasse (ddl = 1, Fobs = 6.30, p-value = 1.33\*10\^-2)
 
-|     |
-|-----|
-|     |
+-   Il n'y a pas d'interaction au seuil alpha de 5% entre le genre et le bmi (ddl = 3, Fobs = 1.44, p-value = 2.33\*10\^-1)
+
++-----------------------------+
+| ### ANOVA à deux facteurs 2 |
++-----------------------------+
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
@@ -650,7 +654,9 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 <!--% Interprétation statistique et biologique -->
 
 Dans notre cas, nous pouvons dire avec un seuil\
-α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α) \# Discussion et conclusions.
+α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α)
+
+### Discussion et conclusion 
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
