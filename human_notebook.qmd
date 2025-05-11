@@ -433,17 +433,18 @@ chisq.test(table_F)
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_t_1}
-chart(biometry, imc ~ cortisone)
-geom_boxplot()
+ggplot(biometry, aes(x = cortisone, y = imc)) +
+  geom_boxplot()
+
 
 biometry %>.%
   group_by(., cortisone) %>.% 
   summarise(.,
     mean = mean(imc, na.rm = TRUE),
     var  = var(imc, na.rm = TRUE),
-    n = n()) -> imc/cortisone_tab
+    n = n()) -> imc_cortisone_tab
 
-imc/cortisone_tab
+imc_cortisone_tab
 ```
 
 <!-- Hypothèse nulle et alternative -->
