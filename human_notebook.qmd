@@ -656,7 +656,7 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 Dans notre cas, nous pouvons dire avec un seuil\
 α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α)
 
-### Discussion et conclusion 
+### Discussion et conclusion
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
