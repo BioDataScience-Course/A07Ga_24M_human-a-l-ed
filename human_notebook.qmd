@@ -422,7 +422,9 @@ chisq.test(table_F)
 
 <!--% Interprétation statistique et biologique -->
 
-Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307), cela signifie que le rth est dépendant des catégories de l'imc
+-   Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307)
+
+-   Cela signifie que le RTH est dépendant des catégories de l'IMC
 
 <!--# Travaillez jusqu'ici pour le module 7. -->
 
@@ -654,8 +656,13 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 <!--% Interprétation statistique et biologique -->
 
 Dans notre cas, nous pouvons dire avec un seuil\
-α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α)
+α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α).
 
+<<<<<<< HEAD
+=======
+On ne peut donc pas conclure qu'il y aie d'effet significatif de l'intolérence sur la masse au seuil α de 5% à la fois en fonction de l'intolérence au lactose (*F* = 0.0482, ddl = 1 et 140, valeur *p* = 0.8265) et de l'intolérance au gluten (*F* = 2.6189, ddl = 1 et 140, valeur *p* = 0.1078).
+
+>>>>>>> 2e796505a8cfdf0bb557beed37313062c5a70a31
 ### Discussion et conclusion
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->

@@ -217,6 +217,27 @@ NB : Attention que le nombre d'observations dans les différentes catégories es
 
 <!--% Sélectionnez les 4 tests d'hypothèses les plus pertinents depuis `human_notebook.qmd`, ainsi bien sûr que les calculs des indices nécessaires que vous placerez juste au-dessus de vos tests. Ces tests doivent répondre à votre question de recherche (le but). Reformulez les interprétations pour former un texte qui se lit en continu. -->
 
+#### Intolérences
+
+```{r test hypothèse 1}
+anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*intolerance_gluten))
+```
+
+Pour les différents cas, on ne peut pas conclure que l'on puisse rejeter H_0 au seuil α de 5% (p > α) donc on ne peut pas conclure qu'il y aie d'effet significatif de l'intolérence sur la masse au seuil α de 5% à la fois en fonction de l'intolérence au lactose (F = 0.0482, ddl = 1 et 140, valeur p = 0.8265) et de l'intolérance au gluten (F = 2.6189, ddl = 1 et 140, valeur p = 0.1078).
+
+#### RTH
+
+```{r calcul 2}
+biometry$rth <- biometry$tour_taille/biometry$tour_hanche
+```
+
+```{r test hypothèse 2}
+chisq.test(table_H)
+chisq.test(table_F)
+```
+
+Nous pouvons rejeter H_0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307) donc le RTH est bien dépendant des catégories de l'IMC.
+
 ...Vos tests d'hypothèses ici...
 
 # Discussion et conclusions
