@@ -217,35 +217,13 @@ NB : Attention que le nombre d'observations dans les différentes catégories es
 
 <!--% Sélectionnez les 4 tests d'hypothèses les plus pertinents depuis `human_notebook.qmd`, ainsi bien sûr que les calculs des indices nécessaires que vous placerez juste au-dessus de vos tests. Ces tests doivent répondre à votre question de recherche (le but). Reformulez les interprétations pour former un texte qui se lit en continu. -->
 
-#### Poids idéal
-
-```{r calcul 1}
-biometry$poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
-biometry$poids_ideal
-```
+#### Intolérences
 
 ```{r test hypothèse 1}
-
-biometry$cat_poids <- cut(
-  biometry$poids_ideal,
-  breaks = quantile(biometry$poids_ideal, probs = seq(0, 1, 0.25), na.rm = TRUE),
-  include.lowest = TRUE,
-  labels = c("Bas", "Moyen-", "Moyen+", "Haut")
-)
-
-biometry$cat_AP <- cut(
-  biometry$activite_physique,
-  breaks = quantile(biometry$activite_physique, probs = seq(0, 1, 0.25), na.rm = TRUE),
-  include.lowest = TRUE,
-  labels = c("Faible", "Modérée-", "Modérée+", "Élevée")
-)
-
-tab_poids_ideal_x_activite_physique <- table(biometry$cat_poids, biometry$cat_AP)
-
-chisq.test(tab_poids_ideal_x_activite_physique)
+anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*intolerance_gluten))
 ```
 
-Ce test Chi carré d'indépendance montre qu'il existe un lien entre activité physique et poids "idéal" (via un découpage en différentes catégories pour chacune des variables pour en obtenir des variables facteurs), on observe une valeur p inférieure au seuil alpha de 5% (0.01833) : donc nous rejetons H_0 et il y a bien un lien de corrélation entre l'activité physique et le poids "idéal" (x-squared = 19.933 , df = 9, p-value = 0.01833).
+Pour les différents cas, on ne peut pas conclure que l'on puisse rejeter H_0 au seuil α de 5% (p > α) donc on ne peut pas conclure qu'il y aie d'effet significatif de l'intolérence sur la masse au seuil α de 5% à la fois en fonction de l'intolérence au lactose (F = 0.0482, ddl = 1 et 140, valeur p = 0.8265) et de l'intolérance au gluten (F = 2.6189, ddl = 1 et 140, valeur p = 0.1078).
 
 #### RTH
 
