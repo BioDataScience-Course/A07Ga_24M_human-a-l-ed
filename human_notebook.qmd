@@ -90,8 +90,10 @@ en conclusion, nos pouvons dire que la prise de poids et l'augmentation de la ta
 ```{r student2}
 chart(biometry, ~ activite_physique %fill=% sucre) + geom_histogram(bins = 10)
 
-sselect(biometry, activite_physique , sucre) -> biometry_sucre
-tabularise(biometry_sucre)
+biosport <- ssummarise(sgroup_by(biometry, sucre,genre),
+  "n"       = fn(activite_physique),
+  "activite physique moyenne"=fmean(activite_physique))
+tabularise(biosport)
 ```
 
 ...Vos deux descriptions ici...
