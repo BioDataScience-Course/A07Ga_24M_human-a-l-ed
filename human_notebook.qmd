@@ -474,11 +474,11 @@ chart(biometry, imc ~ genre) +
   geom_boxplot()
 
 biometry %>.%
-  group_by(., genre) %>.% 
-  summarise(.,
-    mean = mean(imc, na.rm = TRUE),
-    var  = var(imc, na.rm = TRUE),
-    n = n()) -> imc_tab 
+  sgroup_by(., genre) %>.% 
+  ssummarise(.,
+    mean = mean(imc,na.rm=TRUE),
+    var  = var(imc,na.rm=TRUE),
+    n = fn(imc)) -> imc_tab 
 
 imc_tab
 ```
