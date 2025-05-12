@@ -70,7 +70,7 @@ biometry %>.%
    sselect(.,tour_taille,masse_corr,bmi_cat)%>.%
    sgroup_by(., bmi_cat) %>.%
    ssummarise(.,
-    mean_ttaille = mean(tour_taille),
+     mean_taille = mean(tour_taille),
      mean_masse = mean(masse_corr),
      corr_masse_taille = mean(tour_taille)/mean(masse_corr)) -> bio_bmi
  
@@ -81,7 +81,7 @@ biometry %>.%
 
 le graphique montre une augmentation linéaire du tour de taille par rapport au la masse de l'individu
 
-Le remaniement de données nous conforte dans cette idées en montrant une augmentation de la moyenne du poid et du tour de taille en corrélation avec l'augmentation de la classe du bmi. De plus en regardant le ratio des deux moyennes on voit que celui reste assez similaire entre les catégories de poids normal, surpoids et obésité nous réconfortant dans cette idée d'augmentation linéaire du tour de taille par rapport à l'augmentation du poids. Malgré une divergence plus importante par rapport à ce ratio chez les personnes soucharge pondérale qui est probablement à une limite naturelle dù à la taille de l'os
+Le remaniement de données nous conforte dans cette idées en montrant une augmentation de la moyenne du poids et du tour de taille en corrélation avec l'augmentation de la classe du bmi. De plus en regardant le ratio des deux moyennes on voit que celui reste assez similaire entre les catégories de poids normal, surpoids et obésité nous réconfortant dans cette idée d'augmentation linéaire du tour de taille par rapport à l'augmentation du poids. Malgré une divergence plus importante par rapport à ce ratio chez les personnes soucharge pondérale qui est probablement à une limite naturelle dù à la taille de l'os
 
 en conclusion, nos pouvons dire que la prise de poids et l'augmentation de la taille suivent une augmentation linéaire
 
@@ -114,7 +114,7 @@ tabularise(biogenre)
 
 ...Vos deux descriptions ici...
 
--   Les personnes en poids élevé extreme mangent tous souvent du sucre.
+-   Les personnes en poids élevé extrême mangent tous souvent du sucre.
 
 -   Les différentes alimentation en sucre ne montre pas de différence de poids en moyenne.
 
@@ -194,11 +194,9 @@ combine_charts(list(a,b))
 
 <!--% Interprétation en quelques points du graphique ou tableau. -->
 
--   ...
+-   Nous constatons que l'indice "lean body mass" soit masse maigre est plus élevé chez les hommes que chez les femmes, ce qui représente effectivement la difference biologique musculaire entre sexe.
 
--   ...
-
--   ...
+-   La masse est similaire entre hommes et femmes donc nous pouvons conclure que les femmes ont plus de masse grasse que les hommes.
 
 ### Indice 2
 
@@ -208,7 +206,6 @@ combine_charts(list(a,b))
 # Calcul de la ou des variables reprenant l'indice sous forme numérique (et facteur)
 # Formule de Lorentz avec correction basée sur la morphologie osseuse
 biometry$poids_ideal <- (biometry$taille - 100 + 6 * biometry$tour_poignet)/2
-biometry$poids_ideal
 ```
 
 <!--% Graphique ou tableau utilisant l'indice calculé.-->
@@ -229,7 +226,7 @@ ggplot(biometry, aes(x = genre, y = poids_ideal, fill = genre)) +
 
 -   Nous avons quelques valeurs extrêmes chez les hommes de façon générale
 
--   La dispersion des valeurs centrales est plus importante chez les femmes que chez les hommes dans notre échantillonage
+-   La dispersion des valeurs centrales est plus importante chez les femmes que chez les hommes dans notre échantillonnage
 
 ### Indice 3
 
