@@ -260,7 +260,7 @@ chisq.test(table_F)
 
 Nous pouvons rejeter H_0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307) donc le RTH est bien dépendant des catégories de l'IMC.
 
-#### Etude de la consommation de fast-food en fonction de l'âge 
+#### Etude de la consommation de fast-food en fonction de l'âge
 
 ```{r plot_anova1_1}
 chart(data = biometry, fast_food ~ age_rec) +
@@ -286,7 +286,7 @@ En effet, la prise de fast-food augmente en allant des individus âgés de 60-80
 
 Cela a son importence car on pourrait éventuellemnt (dans l'hypothèse) voir un impact sur les cas d'obésités dans les différentes tranches d'âges.
 
-#### Etude de l'imapct du genre sur l'IMC 
+#### Etude de l'imapct du genre sur l'IMC
 
 ```{r plot_t_2}
 chart(biometry, imc ~ genre) +
