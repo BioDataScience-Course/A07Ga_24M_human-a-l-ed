@@ -51,7 +51,9 @@ Cette étude porte à mesurer et comparer les différentes facteurs qui sont li�
 
 <!--% Cette section doit comprendre une explication technique sur les mesures effectuées et sur le protocole relatif à l'acquisition des données en 3 à 4 paragraphes. Vous ajouterez aussi un paragraphe qui détaille les outils logiciels et statistiques utilisés (logiciels et versions des logiciels). Un simple copier-coller du matériel et méthodes du bloc-notes ne sera PAS considéré comme acceptable. -->
 
-Cette étude porte sur l'analyse de différentes variables liée ou pas à l'obésité, elle a été réalisé par un groupe d'une trentaines d'expérimentateurs qui ont interrogés et mesurer 144 personnes du Hainaut aux totales sur plusieurs variables. Pour les mesures de la masse, une intercalibration à été effectué au préalable, via l'utilisation d'une balance commune. Les mesures de taille etc... ont été considéré comme assez précise avec des instruments de mesure personelles. Le reste des mesures sont des simples questions posées aux individus qui sont fiables car l'anonymat est garantie.
+#Les données ont été collectées par un groupe d'une trentaine d'expérimentateurs qui se sont réparti le travail. Le choix des mesures à réaliser a fait l'objet d'un consensus au sein du groupe par l'élaboration d'un dictionnaire des données commun. Les mesures sujettes à variation (la masse plus particulièrement) ont fait l'objet d'une intercalibration. Ces données sont pseudonymisées afin de respecter l'anonymat des sujets étudiés en respect du RGPD (règlement général de la protection des données, règlement d'application en Europe).#
+
+Cette étude porte sur l'analyse de différentes variables liée ou pas à l'obésité, elle a été réalisé par un groupe d'une trentaines d'expérimentateurs qui ont interrogés et mesurer 144 personnes totales sur plusieurs variables. Pour les mesures de la masse, une intercalibration à été effectué au préalable, via l'utilisation d'une balance commune. Les mesures de taille etc... ont été considéré comme assez précise avec des instruments de mesure personelles. Le reste des mesures sont des simples questions posées aux individus
 
 La description des données et les tests statistiques sont réalisés dans la SciViews Box 2024 en utilisant [Saturn Cloud](https://saturncloud.io) (Linux) avec le [logiciel R](https://www.r-project.org) (R version 4.3.0 (2023-04-21) \-- "Already Tomorrow").
 
@@ -215,13 +217,117 @@ NB : Attention que le nombre d'observations dans les différentes catégories es
 
 <!--% Sélectionnez les 4 tests d'hypothèses les plus pertinents depuis `human_notebook.qmd`, ainsi bien sûr que les calculs des indices nécessaires que vous placerez juste au-dessus de vos tests. Ces tests doivent répondre à votre question de recherche (le but). Reformulez les interprétations pour former un texte qui se lit en continu. -->
 
-...Vos tests d'hypothèses ici...
+#### Intolérences
+
+```{r test hypothèse 1}
+anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*intolerance_gluten))
+```
+
+Pour les différents cas, on ne peut pas conclure que l'on puisse rejeter H_0 au seuil α de 5% (p \> α) donc on ne peut pas conclure qu'il y aie d'effet significatif de l'intolérence sur la masse au seuil α de 5% à la fois en fonction de l'intolérence au lactose (F = 0.0482, ddl = 1 et 140, valeur p = 0.8265) et de l'intolérance au gluten (F = 2.6189, ddl = 1 et 140, valeur p = 0.1078).
+
+#### RTH
+
+```{r calcul 2}
+biometry$rth <- biometry$tour_taille/biometry$tour_hanche
+```
+
+```{r plot_chi2_2}
+biometry_H<-smutate(biometry_H,biometry_H$imc <- biometry_H$masse_corr / ((biometry_H$taille/100) ^ 2))
+biometry_H<-smutate(biometry_H, imc_levels = case_when(
+  imc<18.5 ~ "sous-poids",
+  imc>=18.5 & imc< 25 ~ "poids normal",
+  imc>=25 & imc<30~"surpoids",
+  imc>=30~"obesité"
+))
+biometry_F<-smutate(biometry_F,
+  biometry_F$imc <- biometry_F$masse_corr /((biometry_F$taille/100) ^ 2))
+biometry_F<-smutate(biometry_F, imc_levels = case_when(
+  imc<18.5 ~ "sous-poids",
+  imc>=18.5 & imc< 25 ~ "poids normal",
+  imc>=25 & imc<30~"surpoids",
+  imc>=30~"obesité"
+))
+table_F<-table(IMC_F=biometry_F$imc_levels,rth_Femme=biometry_F$rth_levels)
+tabularise(table_F)
+table_H<-table(IMC_H=biometry_H$imc_levels,rth_Homme=biometry_H$rth_levels)
+tabularise(table_H)
+```
+
+```{r test hypothèse 2}
+chisq.test(table_H)
+chisq.test(table_F)
+```
+
+Nous pouvons rejeter H_0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307) donc le RTH est bien dépendant des catégories de l'IMC.
+
+#### Etude de la consommation de fast-food en fonction de l'âge
+
+```{r plot_anova1_1}
+chart(data = biometry, fast_food ~ age_rec) +
+  geom_violin() +
+  geom_jitter(width = 0.05, alpha = 0.5) +
+  stat_summary(geom = "point", fun = "mean", color = "blue", size = 3)
+```
+
+```{r test_anova1_1}
+	
+bartlett.test(data = biometry, fast_food ~ age_rec)
+
+biometry_anova_age_rec <- lm(data = biometry, fast_food ~ age_rec)
+anova(biometry_anova_age_rec) %>.%
+  tabularise(.)
+```
+
+Ce test anova un facteur a pour but de déterminer s'il y a une différence significative entre la fréquence de prise de fast-food chez les individus dans différentes tranches d'âge.
+
+Au seuil alpha de 5%, nous pouvons rejeter Ho et par conséquent dire qu'il y a bel et bien une différence significative à observer. (ddl = 2, Fobs = 7.18, p-value = 0.00108)
+
+En effet, la prise de fast-food augmente en allant des individus âgés de 60-80 ans aux individus âgés de 18-40 ans.
+
+Cela a son importence car on pourrait éventuellemnt (dans l'hypothèse) voir un impact sur les cas d'obésités dans les différentes tranches d'âges.
+
+#### Etude de l'imapct du genre sur l'IMC
+
+```{r plot_t_2}
+chart(biometry, imc ~ genre) +
+  geom_boxplot()
+
+biometry %>.%
+  group_by(., genre) %>.% 
+  summarise(.,
+    mean = mean(imc, na.rm = TRUE),
+    var  = var(imc, na.rm = TRUE),
+    n = n()) -> imc_tab 
+
+imc_tab
+```
+
+```{r test_t_2}
+t.test(data = biometry, imc ~ genre,
+  alternative = "two.sided", conf.level = 0.95, var.equal = FALSE)
+```
+
+Ce test a pour but de déterminer si une différence significative est observée entre les moyennes d'IMC des deux genres.
+
+Nous avons ici effectué un test de Welch car nos variances ne sont pas égales entre les deux groupes d'individus.
+
+Au seuil alpha de 5%, nous pouvons dire que nous ne rejetons pas H0 et que par conséquent il n'y a probablement pas de différence significative d'IMC entre les deux genres. (df = 140.04, t = 0.33563, p-value = 0.7377)
+
+Cela est interessant car nous aurions pu penser que le fait d'être une femme ou un homme donne des prédispositions à être en surpoids par exemple.
 
 # Discussion et conclusions
 
 <!--% Reprenez les résultats obtenus, discutez-les d'un point de vue biologique en 4 à 5 paragraphes et concluez votre travail. Vous pouvez les mettre également en relation avec vos recherches bibliographiques dans cette section. -->
 
-...Vos conclusions ici...
+Dans cette étude, plusieurs recherches de potentielles "causes" d'obésité ont été faites. Nous avons en effet traité de plusieurs des données qui étaient à notre disposition tout en restant impartiaux sur d'éventuelles erreurs pouvant être dûes à un manque d'informations sur les individus ou même un manque d'individus simplement.
+
+Tout d'abord, nous avons découvert que plusieurs paramètres pourraient influencer l'obésité. La prise de sucre, par exemple, n'influence pas directement l'obésité mais peut malgré tout en être un facteur aggravant. En effet, nous avons remarqué que les personnes de 100 kg ou plus consomment régulièrement du sucre.
+
+Ensuite, nous avons remarqué que certains facteurs qui, selon nous, pourraient influencer l'obésité ne l'affectaient en aucun cas (au vu des résultats de nos études). L'âge ou encore le genre des individus en font parties. Le genre des individus n'influence en effet pas significativement l'IMC. Cependant, via notre indice nommé rth nous avons conclu que les femmes étaient a plus haut risque d'obésité que les hommes (cela ne signifie pas qu'elles le sont). De plus, le poids idéal des hommes a été, en moyenne, calculé comme plus élevé que celui des femmes ce qui pourrait aussi expliqué que les hommes et globalement une masse plus élevée que les femmes. Pour poursuivre, nous avons observé que la consommation de fast-food différait avec l'âge des individus. Celle-ci augmente des 60-80 ans aux 18-40 ans. Bien qu'aucune différence significative n'a été observée en ce qui concerne la masse de ces classes d'âges, il est possible que la prise de fast-food initie un plus haut risque d'obésité chez les individus plus jeunes dans le futur.
+
+Pour conclure, nous pouvons dire que les différents tests que nous avons réalisés avaient pour but de tester des "préjugés" en ce qui concerne l'obésité et ses facteurs aggravants. Nos conclusions sont que, oui, certains de ces facteurs sont liés directement à l'obésité mais également que d'autres que nous pensions l'être ne le sont pas directement.
+
+Finalement, une dernière chose à dire serait qu'il faut toujours se méfier des résultats obtenus dans cette étude car nos relevés ne sont pas idéals. En effet, certains groupes d'individus n'ont pas un effectif équivalent (genre, âge, ...). Cela peut donc potentiellement fausser nos résultats et donc biaiser notre étude.
 
 <!--# Important : ce document doit compiler SANS ERREURS avec le bouton 'Rendu' sinon le travail sera sanctionné lourdement. La compilation du document Quarto est maintenant considérée comme acquise. -->
 

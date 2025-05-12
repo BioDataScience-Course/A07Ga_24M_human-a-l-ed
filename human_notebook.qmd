@@ -422,7 +422,9 @@ chisq.test(table_F)
 
 <!--% Interprétation statistique et biologique -->
 
-Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307), cela signifie que le rth est dépendant des catégories de l'imc
+-   Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df = 3, p = 0.006897) et les hommes (x\^2=15.7, df = 3, p = 0.001307)
+
+-   Cela signifie que le RTH est dépendant des catégories de l'IMC
 
 <!--# Travaillez jusqu'ici pour le module 7. -->
 
@@ -431,17 +433,18 @@ Nous pouvons rejeter H0 au seuil alpha de 5% pour les femmes (x\^2 = 12.147, df 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
 ```{r plot_t_1}
-chart(biometry, imc ~ cortisone)
-geom_boxplot()
+ggplot(biometry, aes(x = cortisone, y = imc)) +
+  geom_boxplot()
+
 
 biometry %>.%
   group_by(., cortisone) %>.% 
   summarise(.,
     mean = mean(imc, na.rm = TRUE),
     var  = var(imc, na.rm = TRUE),
-    n = n()) -> imc/cortisone_tab
+    n = n()) -> imc_cortisone_tab
 
-imc/cortisone_tab
+imc_cortisone_tab
 ```
 
 <!-- Hypothèse nulle et alternative -->
@@ -605,6 +608,8 @@ tabularise(graisse_mass)
 
 <!--% Hypothèse nulle et alternative -->
 
+-   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$ $$H_1 : Il \ y \ a \ un \ effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+
 <!--% Vérification des conditions d'application -->
 
 ```{r test_anova2_1}
@@ -616,13 +621,15 @@ anova(masse_grasse_anova) %>.%
 
 <!--% Interprétation statistique et biologique -->
 
--   $$H_0 : Il \ n'y \ a \ pas \ d'effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+-   Il y a un effet significatif au seuil alpha de 5% du bmi sur la masse grasse (ddl = 3, Fobs = 237.64, p-value = 2\*10\^-16)
 
--   $$H_1 : Il \ y \ a \ pas \ un \ effet \ significatif \ du \ bmi \ et \ du \ genre \ sur \ la \ masse \ grasse $$
+-   Il y a un effet significatif au seuil alpha de 5% du genre sur la masse grasse (ddl = 1, Fobs = 6.30, p-value = 1.33\*10\^-2)
 
-|     |
-|-----|
-|     |
+-   Il n'y a pas d'interaction au seuil alpha de 5% entre le genre et le bmi (ddl = 3, Fobs = 1.44, p-value = 2.33\*10\^-1)
+
++-----------------------------+
+| ### ANOVA à deux facteurs 2 |
++-----------------------------+
 
 <!--% Graphique ou tableau présentant les données par rapport au test à réaliser. -->
 
@@ -650,7 +657,11 @@ anova(anova_lactose_gluten<-lm(data=biometry, masse_corr ~ intolerance_lactose*i
 <!--% Interprétation statistique et biologique -->
 
 Dans notre cas, nous pouvons dire avec un seuil\
-α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α) \# Discussion et conclusions.
+α de 5% que nous ne pouvons pas rejeter H_0 dans les trois cas (p \> α).
+
+On ne peut donc pas conclure qu'il y aie d'effet significatif de l'intolérence sur la masse au seuil α de 5% à la fois en fonction de l'intolérence au lactose (*F* = 0.0482, ddl = 1 et 140, valeur *p* = 0.8265) et de l'intolérance au gluten (*F* = 2.6189, ddl = 1 et 140, valeur *p* = 0.1078).
+
+### Discussion et conclusion
 
 <!--% Reprenez ci-dessous sous forme d'éléments de listes brefs les résultats les plus importants que vous retirez de votre analyse. Ils doivent vous guider pour décider quels tests (les plus intéressants) vous allez conserver dans le rapport. -->
 
